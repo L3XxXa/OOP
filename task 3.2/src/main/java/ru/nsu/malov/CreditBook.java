@@ -54,8 +54,11 @@ public class CreditBook extends Semester {
 
     public static boolean redDiploma(CreditBook creditBook) {
         ArrayList<Integer> grades = creditBook.getAllGrades();
-        if (grades.stream().anyMatch(i -> i < 4)) {
-            return false;
+        for (int grade:grades
+             ) {
+            if (grade<4){
+               return false;
+            }
         }
         return !(averageScore(grades) < 4.5) && (gradeOfQualifiedWork == 5);
     }
