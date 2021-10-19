@@ -41,12 +41,9 @@ class CreditBookTest {
     @Test
     public void redDiploma_forMe() {
         l3xxxa.setGradeOfWork(5);
-        boolean t;
-        t = CreditBook.redDiploma(l3xxxa);
-        Assertions.assertFalse(t);
+        Assertions.assertFalse(CreditBook.redDiploma(l3xxxa));
         l3xxxa.setGradeOfWork(4);
-        t = CreditBook.redDiploma(l3xxxa);
-        Assertions.assertFalse(t);
+        Assertions.assertFalse(CreditBook.redDiploma(l3xxxa));
     }
 
     @Test
