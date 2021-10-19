@@ -6,18 +6,14 @@ import java.util.Collection;
 public class CreditBook extends Semester {
     private int group;
     private String name;
-    private String faculty;
-    private String speciality;
     private static int gradeOfQualifiedWork;
     final private int SEMESTERS = 9;
     private final Semester[] semester = new Semester[SEMESTERS];
 
 
-    public CreditBook(int group, String name, String faculty, String speciality, int gradeOfWork) {
+    public CreditBook(int group, String name, int gradeOfWork) {
         this.group = group;
         this.name = name;
-        this.faculty = faculty;
-        this.speciality = speciality;
         gradeOfQualifiedWork = gradeOfWork;
         for (int i = 1; i < SEMESTERS; i++) {
             Semester sem = new Semester();

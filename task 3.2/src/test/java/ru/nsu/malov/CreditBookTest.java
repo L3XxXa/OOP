@@ -13,7 +13,7 @@ class CreditBookTest {
 
     @BeforeEach
     private void setStudent() {
-        l3xxxa = new CreditBook(20214, "Malov A.Y.", "FIT", "CS and SD", 0);
+        l3xxxa = new CreditBook(20214, "Malov A.Y.", 0);
         l3xxxa.addGrades(1, 4, "MathAn");
         l3xxxa.addGrades(1, 5, "Discrete Maths");
         l3xxxa.addGrades(1, 4, "Declarative programming");
@@ -53,7 +53,7 @@ class CreditBookTest {
 
     @Test
     public void averageScore_redDiploma_scholarship_goodStudent() {
-        CreditBook goodStudent = new CreditBook(20214, "Zhmishenko V.A.", "FIT", "CS and SD", 0);
+        CreditBook goodStudent = new CreditBook(20214, "Zhmishenko V.A.",  0);
         goodStudent.addGrades(1, 4, "MathAn");
         goodStudent.addGrades(1, 5, "Discrete Maths");
         goodStudent.addGrades(1, 4, "Declarative programming");
