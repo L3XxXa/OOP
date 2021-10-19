@@ -78,5 +78,16 @@ class CreditBookTest {
         goodStudent.setGradeOfWork(4);
         Assertions.assertFalse(CreditBook.redDiploma(goodStudent));
     }
+    @Test
+    public void scholarship_goodStudent() {
+        CreditBook goodStudent = new CreditBook(20214, "Zhmishenko V.A.",  0);
+        goodStudent.addGrades(1, 4, "MathAn");
+        goodStudent.addGrades(1, 4, "Discrete Maths");
+        goodStudent.addGrades(1, 4, "Declarative programming");
+        goodStudent.addGrades(1, 5, "History");
+        goodStudent.addGrades(1, 5, "OKR");
+        goodStudent.addGrades(1, 5, "Imperative programming");
+        Assertions.assertFalse(goodStudent.scholarship(goodStudent, 1));
+    }
 
 }
