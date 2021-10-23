@@ -203,11 +203,14 @@ public class CreditBook {
     /**
      * Method to define can student have an increased scholarship by JetBrains
      *
-     * @param semester - number of semester
      * @return true if student will have an increased scholarship by JetBrains
      */
-    public boolean increasedScholarshipByJetBrains(int semester) {
-        Collection<Integer> grades = getSemGrades(semester);
+    public boolean increasedScholarshipByJetBrains() {
+        Collection<Integer> grades = getSemGrades(sem);
+        if (sem>2){
+            return false;
+        }
+
         for (int grade : grades) {
             if (grade < 5) {
                 return false;
@@ -219,10 +222,12 @@ public class CreditBook {
     /**
      * Method to define can student have a scholarship by JetBrains
      *
-     * @param semester - number of semester
      * @return true if student will have a scholarship by JetBrains
      */
-    public boolean scholarshipByJetBrains(int semester) {
-        return increasedScholarship(semester);
+    public boolean scholarshipByJetBrains() {
+        if (sem>2){
+            return false;
+        }
+        return increasedScholarship(sem);
     }
 }

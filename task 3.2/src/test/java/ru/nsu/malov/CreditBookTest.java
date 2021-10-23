@@ -113,11 +113,22 @@ class CreditBookTest {
         Assertions.assertEquals(grades, gradesExpected);
         Assertions.assertTrue(easyMoneySniper.increasedScholarship(1));
         Assertions.assertTrue(easyMoneySniper.scholarship(1));
-        Assertions.assertTrue(easyMoneySniper.scholarshipByJetBrains(1));
-        Assertions.assertFalse(easyMoneySniper.increasedScholarshipByJetBrains(1));
+        Assertions.assertTrue(easyMoneySniper.scholarshipByJetBrains());
+        Assertions.assertFalse(easyMoneySniper.increasedScholarshipByJetBrains());
         Assertions.assertEquals(easyMoneySniper.showGroup(), 20214);
         Assertions.assertEquals(easyMoneySniper.showGradeOfQualifyingWork(), 4);
         Assertions.assertEquals(easyMoneySniper.showName(), "Kevin Durant");
+    }
+
+    @Test
+    public void scholarshipByJetBrains_forThirdSemester(){
+        CreditBook goodStudent = new CreditBook(20214, "Zhmishenko V.A.", 0);
+        goodStudent.addGrades(3, 5, "EASY TO CLAIM MONEY SMTH");
+        goodStudent.addGrades(3, 5, "SMTH NOT INTERESTING");
+        goodStudent.addGrades(3, 5, "GOOD SMTH");
+        goodStudent.addGrades(3, 5, "SMTH");
+        Assertions.assertFalse(l3xxxa.increasedScholarshipByJetBrains());
+        Assertions.assertFalse(l3xxxa.scholarshipByJetBrains());
     }
 
 }
