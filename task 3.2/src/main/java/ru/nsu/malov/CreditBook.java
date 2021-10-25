@@ -1,19 +1,10 @@
 package ru.nsu.malov;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 public class CreditBook {
-    /**
-     * Fields:
-     * group - number of student's group
-     * name - student's name
-     * sem - number of semester
-     * gradeOfQualifyingWork - student's grade of qualifying work
-     * Constants:
-     * SEMESTERS - amount of semesters
-     * semester - array for all semesters
-     */
     private int group;
     private String name;
     private int gradeOfQualifyingWork;
@@ -124,10 +115,10 @@ public class CreditBook {
     /**
      * Method to find an average grade
      *
-     * @param grades - arraylist with all student's grades.
      * @return average student's grade.
      */
-    public double averageGrade(ArrayList<Integer> grades) {
+    public double averageGrade() {
+        ArrayList<Integer> grades = getAllGrades();
         double avgScore = 0;
         for (int grade : grades) {
             avgScore += grade;
@@ -141,26 +132,27 @@ public class CreditBook {
      *
      * @return all grades in semester.
      */
-    public Collection<Integer> getSemGrades(int sem) {
-        return semester[sem].getGrades();
+    public ArrayList<Integer> getSemGrades(int sem) {
+        ArrayList<Integer> integers = new ArrayList<>(semester[sem].getGrades());
+        return integers;
     }
 
     /**
      * Method to define can student have a red diploma
      *
-     * @param creditBook - Student's credit book
      * @return true if student will have a red diploma
      */
-    public boolean redDiploma(CreditBook creditBook) {
-        ArrayList<Integer> grades = creditBook.getAllGrades();
-        int fives = 0;
+    public boolean redDiploma() {
+        ArrayList<Integer> grades = getAllGrades();
+        double fives = 0;
         for (int grade : grades) {
             if (grade < 4) {
                 return false;
             }
             fives++;
         }
-        return (double) (fives / grades.size()) >= 0.75 && (gradeOfQualifyingWork == 5);
+        double redDiplomaCond = fives/grades.size();
+        return redDiplomaCond >= 0.75 && (gradeOfQualifyingWork == 5);
     }
 
     /**
@@ -207,10 +199,9 @@ public class CreditBook {
      */
     public boolean increasedScholarshipByJetBrains() {
         Collection<Integer> grades = getSemGrades(sem);
-        if (sem>2){
+        if (sem > 2) {
             return false;
         }
-
         for (int grade : grades) {
             if (grade < 5) {
                 return false;
@@ -225,7 +216,7 @@ public class CreditBook {
      * @return true if student will have a scholarship by JetBrains
      */
     public boolean scholarshipByJetBrains() {
-        if (sem>2){
+        if (sem > 2) {
             return false;
         }
         return increasedScholarship(sem);
