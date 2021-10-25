@@ -31,7 +31,7 @@ class CreditBookTest {
     @Test
     public void averageScore_myAverageGrade() {
         ArrayList<Integer> grades = l3xxxa.getAllGrades();
-        double i = l3xxxa.averageGrade(grades);
+        double i = l3xxxa.averageGrade();
         Assertions.assertEquals(i, 4.1, 0.1);
     }
 
@@ -48,9 +48,9 @@ class CreditBookTest {
     @Test
     public void redDiploma_forMe() {
         l3xxxa.setGradeOfWork(5);
-        Assertions.assertFalse(l3xxxa.redDiploma(l3xxxa));
+        Assertions.assertFalse(l3xxxa.redDiploma());
         l3xxxa.setGradeOfWork(4);
-        Assertions.assertFalse(l3xxxa.redDiploma(l3xxxa));
+        Assertions.assertFalse(l3xxxa.redDiploma());
     }
 
     @Test
@@ -75,12 +75,12 @@ class CreditBookTest {
         goodStudent.addGrades(2, 4, "Digital platforms");
         goodStudent.setGradeOfWork(5);
         ArrayList<Integer> grades = goodStudent.getAllGrades();
-        double i = l3xxxa.averageGrade(grades);
+        double i = goodStudent.averageGrade();
         Assertions.assertEquals(4.8, i, 0.1);
         Assertions.assertTrue(goodStudent.increasedScholarship(2));
-        Assertions.assertTrue(goodStudent.redDiploma(goodStudent));
+        Assertions.assertTrue(goodStudent.redDiploma());
         goodStudent.setGradeOfWork(4);
-        Assertions.assertFalse(goodStudent.redDiploma(goodStudent));
+        Assertions.assertFalse(goodStudent.redDiploma());
     }
 
     @Test
@@ -96,32 +96,65 @@ class CreditBookTest {
     }
 
     @Test
-    public void allMethods_newStudent() {
-        CreditBook easyMoneySniper = new CreditBook(0, null, 0);
-        easyMoneySniper.addGroup(20214);
-        easyMoneySniper.addName("Kevin Durant");
-        easyMoneySniper.setGradeOfWork(4);
-        easyMoneySniper.addGrades(1, 5, "Dribbling");
-        easyMoneySniper.addGrades(1, 5, "Shooting");
-        easyMoneySniper.addGrades(1, 5, "Positioning");
-        easyMoneySniper.addGrades(1, 4, "Passing");
-        ArrayList<Integer> grades = easyMoneySniper.getAllGrades();
-        ArrayList<Integer> gradesExpected = new ArrayList<>(Arrays.asList(5, 4, 5, 5));
-        Assertions.assertEquals(easyMoneySniper.showSem(), 1);
-        Assertions.assertEquals(easyMoneySniper.averageGrade(grades), 4.75, 0.1);
-        Assertions.assertFalse(easyMoneySniper.redDiploma(easyMoneySniper));
-        Assertions.assertEquals(grades, gradesExpected);
-        Assertions.assertTrue(easyMoneySniper.increasedScholarship(1));
-        Assertions.assertTrue(easyMoneySniper.scholarship(1));
-        Assertions.assertTrue(easyMoneySniper.scholarshipByJetBrains());
-        Assertions.assertFalse(easyMoneySniper.increasedScholarshipByJetBrains());
-        Assertions.assertEquals(easyMoneySniper.showGroup(), 20214);
-        Assertions.assertEquals(easyMoneySniper.showGradeOfQualifyingWork(), 4);
-        Assertions.assertEquals(easyMoneySniper.showName(), "Kevin Durant");
+    public void addName_showName_newStudent(){
+        CreditBook newStudent = new CreditBook(0, null, 0);
+        newStudent.addName("Kim Jong Un");
+        Assertions.assertEquals(newStudent.showName(), "Kim Jong Un");
     }
 
     @Test
-    public void scholarshipByJetBrains_forThirdSemester(){
+    public void setGrade_showGrade_newStudent(){
+        l3xxxa.setGradeOfWork(4);
+        Assertions.assertEquals(l3xxxa.showGradeOfQualifyingWork(), 4);
+        l3xxxa.setGradeOfWork(5);
+        Assertions.assertEquals(l3xxxa.showGradeOfQualifyingWork(), 5);
+    }
+
+    @Test
+    public void addGrades_showGrades_newStudent(){
+        CreditBook goodStudent = new CreditBook(20214, "Zhmishenko V.A.", 0);
+        goodStudent.addGrades(3, 5, "EASY TO CLAIM MONEY SMTH");
+        goodStudent.addGrades(3, 5, "SMTH NOT INTERESTING");
+        goodStudent.addGrades(3, 5, "GOOD SMTH");
+        goodStudent.addGrades(3, 5, "SMTH");
+        ArrayList<Integer> grades = goodStudent.getAllGrades();
+        ArrayList<Integer> expectedGrades = new ArrayList<>();
+        expectedGrades.addAll(Arrays.asList(5, 5, 5, 5));
+        Assertions.assertEquals(expectedGrades, grades);
+    }
+
+    @Test
+    public void scholarship_increasedScholarship_newStudent(){
+        Assertions.assertFalse(l3xxxa.scholarship(1));
+        Assertions.assertFalse(l3xxxa.increasedScholarship(1));
+        l3xxxa.addGrades(3, 5, "Subject1");
+        l3xxxa.addGrades(3, 4, "Subject2");
+        l3xxxa.addGrades(3, 4, "Subject3");
+        Assertions.assertTrue(l3xxxa.scholarship(3));
+        Assertions.assertTrue(l3xxxa.increasedScholarship(3));
+    }
+    @Test
+    public void addGrades_getSemGrades_newStudent(){
+        CreditBook goodStudent = new CreditBook(20214, "Zhmishenko V.A.", 0);
+        goodStudent.addGrades(3, 5, "EASY TO CLAIM MONEY SMTH");
+        goodStudent.addGrades(3, 5, "SMTH NOT INTERESTING");
+        goodStudent.addGrades(3, 5, "GOOD SMTH");
+        goodStudent.addGrades(3, 5, "SMTH");
+        goodStudent.addGrades(4, 4, "SMTH IN 4TH SEMESTER");
+        ArrayList<Integer> grades = goodStudent.getSemGrades(3);
+        ArrayList<Integer> expectedGrades = new ArrayList<>();
+        expectedGrades.addAll(Arrays.asList(5, 5, 5, 5));
+        Assertions.assertEquals(grades, expectedGrades);
+        expectedGrades.clear();
+        grades.clear();
+        grades = goodStudent.getSemGrades(4);
+        expectedGrades.add(4);
+        Assertions.assertEquals(grades, expectedGrades);
+
+    }
+
+    @Test
+    public void scholarshipByJetBrains_forThirdSemester() {
         CreditBook goodStudent = new CreditBook(20214, "Zhmishenko V.A.", 0);
         goodStudent.addGrades(3, 5, "EASY TO CLAIM MONEY SMTH");
         goodStudent.addGrades(3, 5, "SMTH NOT INTERESTING");
@@ -130,5 +163,4 @@ class CreditBookTest {
         Assertions.assertFalse(l3xxxa.increasedScholarshipByJetBrains());
         Assertions.assertFalse(l3xxxa.scholarshipByJetBrains());
     }
-
 }
