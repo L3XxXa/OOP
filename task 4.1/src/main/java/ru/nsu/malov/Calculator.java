@@ -3,6 +3,11 @@ package ru.nsu.malov;
 import java.util.Scanner;
 
 public class Calculator extends Operations {
+    /**
+     * Method to parse the string on two doubles and an operand and calculate the result
+     * @param str - expression
+     * @return result of the calculation
+     * */
     public double calculate(String str) {
         Scanner scanner = new Scanner(str);
         Operations operations = new Operations();
