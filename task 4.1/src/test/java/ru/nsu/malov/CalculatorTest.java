@@ -4,72 +4,78 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Stack;
 
 class CalculatorTest {
+    Stack<Double> stack;
     Calculator calculator;
 
     @BeforeEach
-    public void initCalc() {
+    private void initCalc() {
+        stack = new Stack<>();
         calculator = new Calculator();
     }
 
     @Test
-    public void calculate_addition() {
-        Assertions.assertEquals(calculator.calculate("4 + 1"), 5.0);
+    public void addition() {
+        Assertions.assertEquals(10 + 12, calculator.calculate("+ 10 12"));
     }
 
     @Test
-    public void calculate_subtraction() {
-        Assertions.assertEquals(calculator.calculate("3 - 2"), 1.0);
+    public void cos() {
+        Assertions.assertEquals(Math.cos(1), calculator.calculate("cos 1"), 0.00001);
     }
 
     @Test
-    public void calculate_multiplication() {
-        Assertions.assertEquals(calculator.calculate("4 * 2"), 8.0);
+    public void division() {
+        Assertions.assertEquals(12 / 4, calculator.calculate("/ 12 4"));
     }
 
     @Test
-    public void calculate_division() {
-        Assertions.assertEquals(calculator.calculate("4 / 2"), 2.0);
-    }
-
-
-    @Test
-    public void calculate_pow() {
-        Assertions.assertEquals(calculator.calculate("4 ^ 2"), 16.0);
+    public void logarithm() {
+        Assertions.assertEquals(Math.log(3), calculator.calculate("ln 3"), 0.00001);
     }
 
     @Test
-    public void calculate_sqrt_positiveNumber() {
-        Assertions.assertEquals(calculator.calculate("4 sqrt"), 2);
+    public void logarithmWithBase() {
+        double res = Math.log(12) / Math.log(4);
+        Assertions.assertEquals(res, calculator.calculate("log 12 4"), 0.00001);
     }
 
     @Test
-    public void calculate_log() {
-        Assertions.assertEquals(calculator.calculate("4 log 2"), 2);
+    public void multiplication() {
+        Assertions.assertEquals(4 * 5, calculator.calculate("* 4 5"));
     }
 
     @Test
-    public void calculate_ln() {
-        Assertions.assertEquals(calculator.calculate("4 ln"), Math.log(4));
+    public void pow() {
+        Assertions.assertEquals(Math.pow(3, 2), calculator.calculate("^ 3 2"));
     }
 
     @Test
-    public void calculate_sin() {
-        Assertions.assertEquals(calculator.calculate("121 sin"), Math.sin(121));
+    public void sin() {
+        Assertions.assertEquals(Math.sin(1), calculator.calculate("sin 1"));
     }
 
     @Test
-    public void calculate_cos() {
-        Assertions.assertEquals(calculator.calculate("121 cos"), Math.cos(121));
+    public void sqrt() {
+        Assertions.assertEquals(Math.sqrt(4), calculator.calculate("sqrt 4"));
     }
 
     @Test
-    public void calculate_unknownOperand() {
-        String str = "4 $ 1";
-        Assertions.assertThrows(IllegalStateException.class, () -> {
-            calculator.calculate(str);
-        });
+    public void subtraction() {
+        Assertions.assertEquals(5 - 1, calculator.calculate("- 5 1"));
     }
+
+    @Test
+    public void notAnOperator() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> calculator.calculate("$ 5"));
+    }
+
+    @Test
+    public void bigLineTest() {
+        double res = (5 + 1 - 4) * 2;
+        Assertions.assertEquals(res, calculator.calculate("- + * 5 1 4 2"));
+    }
+
 }
