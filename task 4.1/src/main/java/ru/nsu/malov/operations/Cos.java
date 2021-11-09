@@ -13,4 +13,9 @@ public class Cos implements Operation {
     public double init(ArrayList<Double> arrayList) {
         return Math.cos(arrayList.get(0));
     }
+
+    @Override
+    public int getArity() {
+        return 1;
+    }
 }

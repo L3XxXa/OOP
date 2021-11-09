@@ -16,4 +16,9 @@ public class Add implements Operation {
         double b = arrayList.get(0);
         return a + b;
     }
+
+    @Override
+    public int getArity() {
+        return 2;
+    }
 }

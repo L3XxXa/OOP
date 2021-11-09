@@ -20,4 +20,9 @@ public class Sqrt implements Operation {
         }
         return res;
     }
+
+    @Override
+    public int getArity() {
+        return 1;
+    }
 }
