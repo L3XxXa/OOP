@@ -13,4 +13,9 @@ public class Multiplication implements Operation {
     public double init(ArrayList<Double> arrayList) {
         return arrayList.get(0) * arrayList.get(1);
     }
+
+    @Override
+    public int getArity() {
+        return 2;
+    }
 }

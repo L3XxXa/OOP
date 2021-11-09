@@ -13,4 +13,9 @@ public class Sin implements Operation {
     public double init(ArrayList<Double> arrayList) {
         return Math.sin(arrayList.get(0));
     }
+
+    @Override
+    public int getArity() {
+        return 1;
+    }
 }

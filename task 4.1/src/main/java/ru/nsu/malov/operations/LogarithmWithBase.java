@@ -21,4 +21,9 @@ public class LogarithmWithBase implements Operation {
         }
         return res;
     }
+
+    @Override
+    public int getArity() {
+        return 2;
+    }
 }

@@ -74,12 +74,9 @@ class CalculatorTest {
     }
 
     @Test
-    public void calculateStringTest() {
-        try {
-            calculator.calculateString();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+    public void calculateStringTest() throws IOException{
+        CalculateString calculateString = new CalculateString();
+        calculateString.calculateString();
 
     }
 

@@ -2,26 +2,34 @@ package ru.nsu.malov;
 
 import ru.nsu.malov.operations.*;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CalculatorFabric {
+    private final Map<String, Operation> operations = new HashMap<>();
+
     /**
      * Method to make an array list with all operations
-     *
-     * @return list with operations
      */
-    public ArrayList<Operation> operationFabric() {
-        ArrayList<Operation> operations = new ArrayList<>();
-        operations.add(new Add());
-        operations.add(new Cos());
-        operations.add(new Division());
-        operations.add(new Logarithm());
-        operations.add(new LogarithmWithBase());
-        operations.add(new Multiplication());
-        operations.add(new Pow());
-        operations.add(new Sin());
-        operations.add(new Sqrt());
-        operations.add(new Subtraction());
+    public void initMapOperation() {
+        operations.put("+", new Add());
+        operations.put("cos", new Cos());
+        operations.put("/", new Division());
+        operations.put("ln", new Logarithm());
+        operations.put("log", new LogarithmWithBase());
+        operations.put("*", new Multiplication());
+        operations.put("^", new Pow());
+        operations.put("sin", new Sin());
+        operations.put("sqrt", new Sqrt());
+        operations.put("-", new Subtraction());
+    }
+
+    /**
+     * Method to get operations
+     *
+     * @return map key - operator and value - operation
+     */
+    public Map<String, Operation> getOperations() {
         return operations;
     }
 }
