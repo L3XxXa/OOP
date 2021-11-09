@@ -3,10 +3,13 @@ package ru.nsu.malov;
 
 import ru.nsu.malov.operations.Operation;
 
+import java.io.*;
 import java.util.*;
 
 public class Calculator {
     private final Map<String, Operation> operation = new HashMap<>();
+    private final String input = "input.txt";
+    private final String output = "output.txt";
 
     private void initMapOperation() {
         CalculatorFabric calculatorFabric = new CalculatorFabric();
@@ -45,6 +48,13 @@ public class Calculator {
         }
     }
 
+    /**
+     * Method to parse str and init calculating the answer
+     *
+     * @param str - string to calculate
+     * @return result
+     */
+
     public double calculate(String str) {
         initMapOperation();
         String[] input = str.split(" ");
@@ -65,5 +75,31 @@ public class Calculator {
         return stack.pop();
     }
 
+    /**
+     * Method to open file, calculate string and execute method to write the answer to the file
+     */
+    public void calculateString() throws IOException {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(input));
+            String line = bufferedReader.readLine();
+            double res = calculate(line);
+            String resStr = Double.toString(res);
+            writeAnswerToFile(resStr);
+            bufferedReader.close();
+        } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        }
+    }
+
+    private void writeAnswerToFile(String res) throws IOException {
+        try {
+            FileWriter fileWriter = new FileWriter(output);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print(res);
+            printWriter.close();
+        } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        }
+    }
 }
 

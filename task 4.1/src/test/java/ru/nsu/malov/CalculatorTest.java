@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.Stack;
 
 class CalculatorTest {
@@ -70,6 +71,16 @@ class CalculatorTest {
     @Test
     public void notAnOperator() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> calculator.calculate("$ 5"));
+    }
+
+    @Test
+    public void calculateStringTest() {
+        try {
+            calculator.calculateString();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
     }
 
     @Test

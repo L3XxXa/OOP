@@ -3,7 +3,12 @@ package ru.nsu.malov.operations;
 import java.util.ArrayList;
 
 public class Pow implements Operation {
-
+    /**
+     * Pow
+     *
+     * @param arrayList - array list with operands
+     * @return result of pow
+     */
     @Override
     public double init(ArrayList<Double> arrayList) {
         double a = arrayList.get(0);
