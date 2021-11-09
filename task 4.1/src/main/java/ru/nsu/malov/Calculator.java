@@ -35,10 +35,10 @@ public class Calculator {
                 if (operations.get(input[i]).getArity() == 2) {
                     operands.add(stack.pop());
                     operands.add(stack.pop());
-                    stack.push(operations.get(input[i]).init(operands));
+                    stack.push(calculatorFabric.fabric(input[i], operands));
                 } else if (operations.get(input[i]).getArity() == 1) {
                     operands.add(stack.pop());
-                    stack.push(operations.get(input[i]).init(operands));
+                    stack.push(calculatorFabric.fabric(input[i], operands));
                 }
             } else {
                 throw new IllegalArgumentException();

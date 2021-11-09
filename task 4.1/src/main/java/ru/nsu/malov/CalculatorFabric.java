@@ -2,6 +2,7 @@ package ru.nsu.malov;
 
 import ru.nsu.malov.operations.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +31,11 @@ public class CalculatorFabric {
      * @return map key - operator and value - operation
      */
     public Map<String, Operation> getOperations() {
-        return operations;
+        Map<String, Operation> operationMap = operations;
+        return operationMap;
+    }
+
+    public double fabric(String symbol, ArrayList<Double> operands){
+        return operations.get(symbol).init(operands);
     }
 }
