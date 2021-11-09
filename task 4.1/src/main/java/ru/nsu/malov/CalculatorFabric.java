@@ -24,18 +24,15 @@ public class CalculatorFabric {
         operations.put("sqrt", new Sqrt());
         operations.put("-", new Subtraction());
     }
-
-    /**
-     * Method to get operations
-     *
-     * @return map key - operator and value - operation
-     */
-    public Map<String, Operation> getOperations() {
-        Map<String, Operation> operationMap = operations;
-        return operationMap;
+    public boolean checkOperator(String symbol){
+        return operations.containsKey(symbol);
     }
 
-    public double fabric(String symbol, ArrayList<Double> operands){
+    public double calculationFabric(String symbol, ArrayList<Double> operands) {
         return operations.get(symbol).init(operands);
+    }
+
+    public int getArity(String symbol) {
+        return operations.get(symbol).getArity();
     }
 }

@@ -23,7 +23,6 @@ public class Calculator {
 
     public double calculate(String str) {
         CalculatorFabric calculatorFabric = new CalculatorFabric();
-        Map<String, Operation> operations = calculatorFabric.getOperations();
         calculatorFabric.initMapOperation();
         String[] input = str.split(" ");
         Stack<Double> stack = new Stack<>();
@@ -31,14 +30,14 @@ public class Calculator {
         for (int i = input.length - 1; i >= 0; i--) {
             if (isNum(input[i])) {
                 stack.push(Double.parseDouble(input[i]));
-            } else if (operations.containsKey(input[i])) {
-                if (operations.get(input[i]).getArity() == 2) {
+            } else if (calculatorFabric.checkOperator(input[i])) {
+                if (calculatorFabric.getArity(input[i]) == 2) {
                     operands.add(stack.pop());
                     operands.add(stack.pop());
-                    stack.push(calculatorFabric.fabric(input[i], operands));
-                } else if (operations.get(input[i]).getArity() == 1) {
+                    stack.push(calculatorFabric.calculationFabric(input[i], operands));
+                } else if (calculatorFabric.getArity(input[i]) == 1) {
                     operands.add(stack.pop());
-                    stack.push(calculatorFabric.fabric(input[i], operands));
+                    stack.push(calculatorFabric.calculationFabric(input[i], operands));
                 }
             } else {
                 throw new IllegalArgumentException();
