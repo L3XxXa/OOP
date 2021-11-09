@@ -3,7 +3,12 @@ package ru.nsu.malov.operations;
 import java.util.ArrayList;
 
 public class Division implements Operation {
-
+    /**
+     * Division
+     *
+     * @param arrayList - array list with operands
+     * @return result of division
+     */
     @Override
     public double init(ArrayList<Double> arrayList) {
         double a = arrayList.get(0);

@@ -3,7 +3,12 @@ package ru.nsu.malov.operations;
 import java.util.ArrayList;
 
 public class Sqrt implements Operation {
-
+    /**
+     * Square root
+     *
+     * @param arrayList - array list with operands
+     * @return result of square root
+     */
     @Override
     public double init(ArrayList<Double> arrayList) {
         double a = arrayList.get(0);

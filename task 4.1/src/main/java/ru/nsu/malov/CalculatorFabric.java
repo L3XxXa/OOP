@@ -3,9 +3,13 @@ package ru.nsu.malov;
 import ru.nsu.malov.operations.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CalculatorFabric {
+    /**
+     * Method to make an array list with all operations
+     *
+     * @return list with operations
+     */
     public ArrayList<Operation> operationFabric() {
         ArrayList<Operation> operations = new ArrayList<>();
         operations.add(new Add());
