@@ -1,40 +1,45 @@
 package ru.nsu.malov;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 class MultiThreadPrimeCheckerTest {
     MultiThreadPrimeChecker multiThreadPrimeChecker;
-    @BeforeAll
-    static public void showAmountOfAvailableThreads(){
-        System.out.print("Available threads: ");
-        System.out.println(Runtime.getRuntime().availableProcessors());
-    }
+
     @BeforeEach
-    public void init(){
+    public void init() {
         multiThreadPrimeChecker = new MultiThreadPrimeChecker();
-    }
-    @Test
-    public void runningWithMoreThanAvailable(){
-        long[] arr = {1};
-        Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
-            multiThreadPrimeChecker.MultiThreadChecker(9, arr);
-        });
-    }
-    @Test
-    public void hasCompositeNumber(){
-        long[] arr = {1, 2, 4, 5};
-        Assertions.assertFalse(multiThreadPrimeChecker.MultiThreadChecker(8, arr));
     }
 
     @Test
-    public void onlyPrimes(){
-        long[] arr = {2, 3, 5, 7, 11};
-        Assertions.assertTrue(multiThreadPrimeChecker.MultiThreadChecker(8, arr));
+    public void bigTestOneBigNonPrime() {
+        int size = 10000;
+        Long[] arr = new Long[size];
+        Arrays.fill(arr, 0, size - 1, 1048571L);
+        arr[9999] = 1048561L;
+        List<Long> list = new ArrayList<>();
+        Collections.addAll(list, arr);
+        multiThreadPrimeChecker.MultiThreadChecker(8, list);
+        Assertions.assertFalse(multiThreadPrimeChecker.isRes());
     }
+
+    @Test
+    public void bigTestOneNonPrime() {
+        int size = 10000;
+        Long[] arr = new Long[size];
+        Arrays.fill(arr, 0, size - 1, 3L);
+        arr[9999] = 4L;
+        List<Long> list = new ArrayList<>();
+        Collections.addAll(list, arr);
+        multiThreadPrimeChecker.MultiThreadChecker(8, list);
+        Assertions.assertFalse(multiThreadPrimeChecker.isRes());
+    }
+
 
 }
