@@ -41,5 +41,14 @@ class MultiThreadPrimeCheckerTest {
         Assertions.assertFalse(multiThreadPrimeChecker.isRes());
     }
 
+    @Test
+    public void testNegativeAmountOfThreads(){
+        List<Long> list = new ArrayList<>();
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+            multiThreadPrimeChecker.multiThreadChecker(-123, list);
+        });
+
+    }
+
 
 }
