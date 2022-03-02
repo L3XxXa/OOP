@@ -25,7 +25,7 @@ class MultiThreadPrimeCheckerTest {
         arr[9999] = 1048561L;
         List<Long> list = new ArrayList<>();
         Collections.addAll(list, arr);
-        multiThreadPrimeChecker.MultiThreadChecker(8, list);
+        multiThreadPrimeChecker.multiThreadChecker(8, list);
         Assertions.assertFalse(multiThreadPrimeChecker.isRes());
     }
 
@@ -37,7 +37,7 @@ class MultiThreadPrimeCheckerTest {
         arr[9999] = 4L;
         List<Long> list = new ArrayList<>();
         Collections.addAll(list, arr);
-        multiThreadPrimeChecker.MultiThreadChecker(8, list);
+        multiThreadPrimeChecker.multiThreadChecker(8, list);
         Assertions.assertFalse(multiThreadPrimeChecker.isRes());
     }
 

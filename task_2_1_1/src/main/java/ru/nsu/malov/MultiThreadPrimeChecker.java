@@ -33,12 +33,13 @@ public class MultiThreadPrimeChecker {
      *
      * @param arr    - array to check
      * @param amount - amount of threads
-     * @return true if there is no composite numbers
-     * @return false if there is one or more composite numbers
      */
-    public void MultiThreadChecker(int amount, List<Long> arr) {
+    public void multiThreadChecker(int amount, List<Long> arr) {
         if (amount > THREADS) {
             amount = THREADS;
+        }
+        if (amount < 0) {
+            throw new IndexOutOfBoundsException();
         }
         int arrSize = arr.size() / amount;
         ExtendedThread[] threads = new ExtendedThread[amount];
