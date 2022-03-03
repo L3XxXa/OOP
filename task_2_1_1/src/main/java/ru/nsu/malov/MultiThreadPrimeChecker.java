@@ -38,7 +38,7 @@ public class MultiThreadPrimeChecker {
         if (amount > THREADS) {
             amount = THREADS;
         }
-        if (amount < 0) {
+        if (amount <= 0) {
             throw new IndexOutOfBoundsException();
         }
         int arrSize = arr.size() / amount;
