@@ -1,29 +1,40 @@
 package ru.nsu.malov.workers;
 
-import ru.nsu.malov.Order;
-import ru.nsu.malov.Pizzeria;
 
-public class Cook implements Runnable {
-    private final int cookingTime;
-    private Pizzeria pizzeria;
+import ru.nsu.malov.orders.Order;
+import ru.nsu.malov.orders.OrderQueue;
+import ru.nsu.malov.producer_consumer.Producer;
 
-    public Cook(int cookingTime, Pizzeria pizzeria) {
-        this.cookingTime = cookingTime;
-        this.pizzeria = pizzeria;
+public class Cook extends Worker implements Producer{
+    private final int experiene;
+    private OrderQueue waitingOrders;
+    private OrderQueue storage;
+    private final int fullCookingTime = 10000;
+
+    public Cook(int workerId, int workerInfo) {
+        super(workerId, workerInfo);
+        this.experiene = workerInfo;
     }
 
     @Override
-    public void run() {
-        while (true){
-            try {
-                Order order = pizzeria.getOrder();
-                System.out.println(order.toString() + "is being cooked");
-                Thread.sleep(cookingTime);
-                System.out.println(order.toString() + "was cooked");
-                pizzeria.placeToStorage(order);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    public void running() {
+        produce();
     }
+
+    @Override
+    public void produce() {
+        int cookingTime = fullCookingTime / experiene;
+        Order order = waitingOrders.getOrder();
+        order.setOrderStatus("Cooking");
+        try {
+            Thread.sleep(cookingTime);
+            order.setOrderStatus("Cooked");
+            storage.addToQueue(order);
+        } catch (InterruptedException e) {
+            System.out.println("Cook can't cook pizza");
+        }
+
+    }
+
+
 }
