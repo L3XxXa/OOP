@@ -4,6 +4,7 @@ import ru.nsu.malov.orders.Order;
 import ru.nsu.malov.orders.OrderQueue;
 import ru.nsu.malov.producer_consumer.Consumer;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -13,11 +14,12 @@ public class Courier extends Worker implements Consumer {
     private final int deliveryTime;
     private List<Order> orders;
 
-    public Courier(int workerId, int workerInfo, OrderQueue storage, int trunkSize) {
-        super(workerId, workerInfo);
-        this.deliveryTime = workerInfo;
+    public Courier(int workerId, int workingTime, int trunkSize, OrderQueue storage) {
+        super(workerId, workingTime);
+        this.deliveryTime = workingTime;
         this.storage = storage;
         this.trunkSize = trunkSize;
+        orders = new ArrayList<>();
     }
 
 

@@ -7,8 +7,9 @@ import ru.nsu.malov.producer_consumer.Producer;
 public class DefaultCustomer implements Producer {
     private Order order;
     private OrderQueue orderQueue;
-    public DefaultCustomer(Order order){
+    public DefaultCustomer(Order order, OrderQueue orderQueue){
         this.order = order;
+        this.orderQueue = orderQueue;
     }
 
     @Override
