@@ -11,9 +11,11 @@ public class Cook extends Worker implements Producer{
     private OrderQueue storage;
     private final int fullCookingTime = 10000;
 
-    public Cook(int workerId, int workerInfo) {
+    public Cook(int workerId, int workerInfo, OrderQueue waitingOrders, OrderQueue storage) {
         super(workerId, workerInfo);
         this.experiene = workerInfo;
+        this.waitingOrders = waitingOrders;
+        this.storage = storage;
     }
 
     @Override
