@@ -20,7 +20,7 @@ public class Customers implements Runnable{
         while (isOrdering){
             Order order = new Order(i);
             i++;
-            defaultCustomer = new DefaultCustomer(order);
+            defaultCustomer = new DefaultCustomer(order, orderQueue);
             defaultCustomer.produce();
         }
     }
