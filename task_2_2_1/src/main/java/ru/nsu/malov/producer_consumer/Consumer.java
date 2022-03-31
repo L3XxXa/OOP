@@ -1,9 +1,21 @@
 package ru.nsu.malov.producer_consumer;
 
-import ru.nsu.malov.orders.Order;
-import ru.nsu.malov.orders.OrderQueue;
+/**
+ * interface for consumers
+ * */
+public interface Consumer extends Runnable{
+    /**
+     * Consume something
+     * */
+    void consume();
 
-public interface Consumer<T> {
-    T consume();
+    /**
+     * Stop working
+     * */
+    void stop();
 
+    /**
+     * Run consumer
+     * */
+    void run();
 }

@@ -8,45 +8,65 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Courier extends Worker implements Consumer {
+public class Courier implements Consumer {
     private final int trunkSize;
     private OrderQueue storage;
     private final int deliveryTime;
     private List<Order> orders;
+    private boolean isWorking;
 
-    public Courier(int workerId, int workingTime, int trunkSize, OrderQueue storage) {
-        super(workerId, workingTime);
-        this.deliveryTime = workingTime;
+    /**
+     * Courier class constructor
+     * @param storage - pizzeria's storage
+     * @param trunkSize - size of the trunk
+     * @param deliveryTime - delivery time
+     * */
+    public Courier(int deliveryTime, int trunkSize, OrderQueue storage) {
+        this.deliveryTime = deliveryTime;
         this.storage = storage;
         this.trunkSize = trunkSize;
         orders = new ArrayList<>();
-    }
-
-
-    @Override
-    public void running() {
-        List<Order> consumedOrders = consume();
-        if (consumedOrders == null){
-            stopWorking();
-        }
-
+        isWorking = false;
     }
 
     @Override
-    public List<Order> consume() {
-        Order order = new Order();
-        for (int i = 0; i < trunkSize; i++) {
-            order = storage.getOrder();
-            order.setOrderStatus("Delivering");
-            orders.add(order);
+    public void consume() {
+        Order order = null;
+        while (isWorking) {
+            for (int i = 0; i < trunkSize; i++) {
+                order = storage.getOrder();
+                order.setOrderStatus("Took from storage");
+                printOrderStatus(order);
+                orders.add(order);
+            }
+            for (Order item : orders) {
+                if (orders.isEmpty()){
+                    return;
+                }
+                item.setOrderStatus("Delivering");
+                printOrderStatus(item);
+                try {
+                    Thread.sleep(deliveryTime);
+                } catch (InterruptedException e) {
+                    System.err.println("Can't deliver order #" + item.getOrderId());
+                }
+                item.setOrderStatus("Delivered");
+                printOrderStatus(item);
+            }
         }
-        try {
-            Thread.sleep(deliveryTime);
-            order.setOrderStatus("Delivered");
-            return orders;
-        } catch (InterruptedException e) {
-            System.out.println("Courier can't deliver this order");
-            return null;
-        }
+    }
+    @Override
+    public void stop() {
+        isWorking = false;
+    }
+
+    @Override
+    public void run() {
+        isWorking = true;
+        consume();
+    }
+
+    private void printOrderStatus(Order order){
+        System.out.println("Order #" + order.getOrderId() + "\nStatus: " + order.getOrderStatus());
     }
 }
