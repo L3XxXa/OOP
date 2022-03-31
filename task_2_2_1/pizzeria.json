@@ -1,0 +1,28 @@
+{
+  "orderQueueSize": 6,
+  "storageSize": 40,
+
+  "cookList": [
+    {
+      "cookingExperience": 1000
+    },
+    {
+      "cookingExperience": 1500
+    },
+    {
+      "cookingExperience": 1000
+    },
+    {
+      "cookingExperience": 2000
+    },
+    {
+      "cookingExperience": 3000
+    }
+  ],
+  "courierLists": [
+    {
+      "deliveryTime": 20,
+      "trunkSize": 2
+    }
+  ]
+}
