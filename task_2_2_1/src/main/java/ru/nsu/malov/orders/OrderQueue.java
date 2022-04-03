@@ -17,9 +17,10 @@ public class OrderQueue {
     }
 
     public int getQueueSize() {
-        return queueSize;
+        synchronized (queue) {
+            return queueSize;
+        }
     }
-
     /**
      * Add order to the queue
      * @param order - order adding
@@ -48,7 +49,7 @@ public class OrderQueue {
                 try {
                     queue.wait();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
             }
             Order order = queue.poll();

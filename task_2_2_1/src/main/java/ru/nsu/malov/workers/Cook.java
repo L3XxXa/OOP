@@ -10,7 +10,7 @@ public class Cook implements Producer{
     private OrderQueue waitingOrders;
     private OrderQueue storage;
     private int cookingTime = 10000;
-    boolean isWorking;
+    private boolean isWorking;
     /**
      * Cook class constructor
      * @param experience - cook's working experience
@@ -59,5 +59,9 @@ public class Cook implements Producer{
 
     private void printOrderStatus(Order order){
         System.out.println("Order #" + order.getOrderId() + "\nStatus: " + order.getOrderStatus());
+    }
+
+    public void isWorking() {
+        System.out.println(isWorking);
     }
 }
