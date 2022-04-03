@@ -19,13 +19,14 @@ public class Customer implements Producer {
 
     @Override
     public void produce() {
+
         int orderId = 0;
-        while (isWorking) {
+        while (orderId<=orderQueue.getQueueSize()) {
             orderId++;
-            Order order = new Order(orderId);
             if (orderId>orderQueue.getQueueSize()){
                 return;
             }
+            Order order = new Order(orderId);
             order.setOrderStatus("Ordered");
             printOrderStatus(order);
             orderQueue.addToQueue(order);
@@ -45,5 +46,9 @@ public class Customer implements Producer {
 
     private void printOrderStatus(Order order){
         System.out.println("Order #" + order.getOrderId() + "\nStatus: " + order.getOrderStatus());
+    }
+
+    public void isWorking() {
+        System.out.println("\n"+isWorking);
     }
 }

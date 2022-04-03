@@ -13,7 +13,7 @@ public class Courier implements Consumer {
     private OrderQueue storage;
     private final int deliveryTime;
     private List<Order> orders;
-    private boolean isWorking;
+    public boolean isWorking;
 
     /**
      * Courier class constructor

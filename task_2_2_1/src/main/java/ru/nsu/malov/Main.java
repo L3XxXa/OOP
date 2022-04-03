@@ -5,7 +5,7 @@ import ru.nsu.malov.json.setup.JsonSetupPizzeria;
 import ru.nsu.malov.pizzeria.Pizzeria;
 
 public class Main {
-    private final static int time = 10000;
+    private final static int time = 1000;
 
     public static void main(String[] args) {
         JsonReader jsonReader = new JsonReader();

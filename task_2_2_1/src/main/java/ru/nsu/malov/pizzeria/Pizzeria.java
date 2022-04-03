@@ -15,13 +15,15 @@ public class Pizzeria {
     private OrderQueue storage;
     private List<Cook> cooks;
     private List<Courier> couriers;
-    private final int TIME = 10000;
-    private Customer customer;
-
+    private final int TIME = 1000;
+    private Customer customers;
+    private Thread customerThread;
+    private Thread[] cooksThread;
+    private Thread[] couriersThread;
     public Pizzeria(OrderQueue orderQueue, OrderQueue storage, int[] cooksExperience, int[] couriersDeliveryTimes, int[] couriersTrunkSize) {
         this.orderQueue = orderQueue;
         this.storage = storage;
-        customer = new Customer(orderQueue);
+        customers = new Customer(orderQueue);
         setupCooks(cooksExperience);
         setupCouriers(couriersDeliveryTimes, couriersTrunkSize);
     }
@@ -29,7 +31,7 @@ public class Pizzeria {
     public Pizzeria(JsonSetupPizzeria jsonSetupPizzeria){
         this.orderQueue = new OrderQueue(jsonSetupPizzeria.getOrderQueueSize());
         this.storage = new OrderQueue(jsonSetupPizzeria.getStorageSize());
-        customer = new Customer(orderQueue);
+        customers = new Customer(orderQueue);
         setupCooks(jsonSetupPizzeria.parseCooks());
         setupCouriers(jsonSetupPizzeria.parseDeliveryTime(), jsonSetupPizzeria.parseTrunkSize());
     }
@@ -53,35 +55,60 @@ public class Pizzeria {
 
     public void run() {
         System.out.println("Hello.\nWelcome to the pizzeria!");
-        Thread customerThread = new Thread(customer);
-        customerThread.run();
-        cooks.stream().map(Thread::new).forEach(Thread::start);
-        couriers.stream().map(Thread::new).forEach(Thread::start);
+        System.out.println(Thread.activeCount());
+        customerThread = new Thread(customers);
+        customerThread.start();
+        //customerThread.run();
+        cooksThread = new Thread[cooks.size()];
+        for (int i = 0; i < cooks.size(); i++) {
+            cooksThread[i] = new Thread(cooks.get(i));
+        }
+        couriersThread = new Thread[couriers.size()];
+        for (int i = 0; i < couriers.size(); i++) {
+            couriersThread[i] = new Thread(couriers.get(i));
+        }
+        Arrays.stream(couriersThread).forEach(Thread::start);
+        Arrays.stream(cooksThread).forEach(Thread::start);
     }
 
     public void stop(){
-        customer.stop();
+        System.out.println(Thread.activeCount());
+        System.out.println(couriers.get(0).isWorking + "\n");
+        cooks.forEach(Cook::isWorking);
+        //customer.isWorking();
+        couriers.forEach(Courier::stop);
+        Arrays.stream(couriersThread).forEach(Thread::interrupt);
+/*
         try {
             Thread.sleep(TIME);
         } catch (InterruptedException e) {
-            System.err.println("Error while closing pizzeria. Customers still sitting in the restaurant");
-        }
-        System.out.println("Customers left pizzeria.");
+            System.err.println("Error while closing pizzeria. Couriers want to deliver more pizza");
+        }*/
+        System.out.println("Couriers switched off mopeds' engines");
         cooks.forEach(Cook::stop);
+        Arrays.stream(cooksThread).forEach(Thread::interrupt);
         try {
             Thread.sleep(TIME);
         } catch (InterruptedException e) {
             System.err.println("Error while closing pizzeria. Cooks want to work more");
         }
         System.out.println("Cooks switched off ovens");
-        couriers.forEach(Courier::stop);
+        customers.stop();
+        customerThread.interrupt();
+        //customers.forEach(Customer::stop);
+        //customers.stream().map(Thread::new).forEach(Thread::interrupt);
         try {
             Thread.sleep(TIME);
         } catch (InterruptedException e) {
-            System.err.println("Error while closing pizzeria. Couriers want to deliver more pizza");
+            System.err.println("Error while closing pizzeria. Customers still sitting in the restaurant");
         }
-        System.out.println("Couriers switched off mopeds' engines");
+        System.out.println("Customers left pizzeria.");
+
         System.out.println("Bye-bye. Pizzeria is closed. See you next day!");
-        return;
+        System.out.println(Thread.activeCount());
+        System.out.println(couriers.get(0).isWorking + "\n");
+        cooks.forEach(Cook::isWorking);
+
+
     }
 }
