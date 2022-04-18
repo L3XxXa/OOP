@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,10 +21,11 @@ public class SnakeController implements Initializable {
     @FXML
     private Label welcomeText;
 
+    private GameController gameController;
 
     @FXML
     protected void onStartButtonClick() {
-        welcomeText.setText("The game is starting!");
+;
     }
 
     public void onExitButtonClick(ActionEvent actionEvent) {
@@ -32,6 +34,7 @@ public class SnakeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        gameController = new GameController();
         File logoFile = new File("src/main/resources/ru/nsu/malov/images/logo.png");
         if(!logoFile.exists()){
             try {

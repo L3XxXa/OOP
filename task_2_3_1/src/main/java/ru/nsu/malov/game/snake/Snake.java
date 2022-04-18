@@ -12,7 +12,7 @@ public class Snake {
     private int velocityY;
     private boolean trafficCollision;
 
-    Snake(Point initialPoint){
+    public Snake(Point initialPoint){
         this.pythonHead = initialPoint;
         python.add(initialPoint);
         pythonLength = 1;

@@ -17,7 +17,9 @@
     <ImageView fx:id="logo"/>
 
     <Label fx:id="welcomeText"/>
-    <Button text="Start" onAction="#onStartButtonClick"/>
+    <Button text="Start"
+            onAction="#onStartButtonClick"/>
 
-    <Button text="Exit" onAction="#onExitButtonClick"/>
+    <Button text="Exit"
+            onAction="#onExitButtonClick"/>
 </VBox>
