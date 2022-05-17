@@ -15,7 +15,6 @@ public class GameField {
         POINT_SIZE = point_size;
     }
 
-
     public int getWIDTH() {
         return WIDTH;
     }

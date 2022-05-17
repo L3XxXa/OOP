@@ -5,26 +5,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Snake {
+    private final int STARTING_X;
+    private final int STARTING_Y;
+
     private List<Point> python;
     private Point pythonHead;
     private GameField gameField;
     private FoodGenerator foodGenerator;
+    private WallsGenerator wallsGenerator;
     private Point collisionPoint;
     private int score;
 
-    public Snake (GameField gameField, FoodGenerator foodGenerator){
+    public Snake (GameField gameField, FoodGenerator foodGenerator, WallsGenerator wallsGenerator){
         this.gameField = gameField;
         this.foodGenerator = foodGenerator;
+        this.wallsGenerator = wallsGenerator;
+        STARTING_X = gameField.getCOLUMNS() / 2;
+        STARTING_Y = gameField.getROWS() / 2;
         python = new ArrayList<>();
         score = 0;
         initPython();
     }
 
     private void initPython() {
-        python.add(new Point(5, gameField.getROWS()/2));
+        python.add(new Point(STARTING_X, STARTING_Y));
         pythonHead = python.get(0);
     }
 
+    public void remove(){
+        python.removeAll(python);
+        score = 0;
+        initPython();
+    }
     /**
      * Method to crawl up
      * */
@@ -64,10 +76,16 @@ public class Snake {
             collisionPoint = python.get(0);
             return true;
         }
-            for (int i = 3; i < python.size(); i++) {
-                if (pythonHead.getX()== python.get(i).getX() && pythonHead.getY() == python.get(i).getY()) {
-                    collisionPoint = python.get(i);
-                    return true;
+        for (int i = 3; i < python.size(); i++) {
+            if (pythonHead.getX() == python.get(i).getX() && pythonHead.getY() == python.get(i).getY()) {
+                collisionPoint = python.get(i);
+                return true;
+            }
+        }
+        for (Point point:wallsGenerator.getWalls()) {
+            if (point.getX() == pythonHead.getX() && point.getY() == pythonHead.getY()){
+                collisionPoint = python.get(0);
+                return true;
             }
         }
         return false;
@@ -77,10 +95,14 @@ public class Snake {
      * Method to eat food. Extends body of the snake
      * */
     public void devourFood(){
-        if (pythonHead.getX() == foodGenerator.getFood().getX() && pythonHead.getY() == foodGenerator.getFood().getY()) {
-            python.add(new Point(-1, -1));
-            foodGenerator.generateFood(python);
-            score += 1;
+        for (int i = 0; i < foodGenerator.getFood().size(); i++) {
+            if (pythonHead.getX() == foodGenerator.getFood().get(i).getX()
+                    && pythonHead.getY() == foodGenerator.getFood().get(i).getY()) {
+                foodGenerator.getFood().remove(i);
+                foodGenerator.generateFood(wallsGenerator, this);
+                python.add(new Point(-1, -1));
+                score += 1;
+            }
         }
     }
 
@@ -98,5 +120,13 @@ public class Snake {
 
     public Point getCollisionPoint() {
         return collisionPoint;
+    }
+
+    public int getSTARTING_X() {
+        return STARTING_X;
+    }
+
+    public int getSTARTING_Y() {
+        return STARTING_Y;
     }
 }

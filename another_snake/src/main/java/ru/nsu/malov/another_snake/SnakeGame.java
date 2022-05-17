@@ -4,19 +4,15 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import ru.nsu.malov.graphics.Graphics;
-import ru.nsu.malov.model.FoodGenerator;
-import ru.nsu.malov.model.GameField;
-import ru.nsu.malov.model.Snake;
+import ru.nsu.malov.model.*;
 
 import java.awt.*;
 
@@ -26,27 +22,52 @@ public class SnakeGame extends Application {
     private final int UP = 2;
     private final int RIGHT = 3;
 
-    private final int HORIZONTAL_SIZE = 800;
-    private final int VERTICAL_SIZE = 800;
-    private final int ROWS = 20;
-    private final int COLUMNS = 20;
-    private final int POINT_SIZE = HORIZONTAL_SIZE / COLUMNS;
+    private final int EASY = 1;
+    private final int MEDIUM = 2;
+    private final int HARD = 3;
+    private final int GOD = 4;
+
+    private final int HORIZONTAL_SIZE;
+    private final int VERTICAL_SIZE;
+    private final int ROWS;
+    private final int COLUMNS;
+    private final int SCORE_FOR_WIN;
+    private final int POINT_SIZE;
+    private final int MAX_FOOD;
+    private final int MAX_WALLS;
+    private final int LEVEL;
 
     private GameField gameField;
     private FoodGenerator foodGenerator;
+    private WallsGenerator wallsGenerator;
     private Snake snake;
     private Graphics graphics;
     private Timeline timeline;
     private int direction;
     private int score;
-    private int scoreForWin = 15;
+    private boolean gameOver;
+
+    public SnakeGame(ru.nsu.malov.another_snake.Parameters parameters) {
+        HORIZONTAL_SIZE = parameters.getHORIZONTAL_SIZE();
+        VERTICAL_SIZE = parameters.getVERTICAL_SIZE();
+        ROWS = parameters.getMAX_ROWS();
+        COLUMNS = parameters.getMAX_COLUMNS();
+        SCORE_FOR_WIN = parameters.getSCORE_FOR_WIN();
+        POINT_SIZE = parameters.getPOINT_SIZE();
+        MAX_WALLS = parameters.getMAX_WALLS();
+        MAX_FOOD = parameters.getMAX_FOOD();
+        LEVEL = parameters.getLEVEL();
+        score = 0;
+        gameOver = false;
+    }
 
     @Override
     public void start(Stage stage) {
         direction = RIGHT;
         gameField = new GameField(HORIZONTAL_SIZE, VERTICAL_SIZE, COLUMNS, ROWS, POINT_SIZE);
-        foodGenerator = new FoodGenerator(gameField);
-        snake = new Snake(gameField, foodGenerator);
+        foodGenerator = new FoodGenerator(gameField, MAX_FOOD);
+        wallsGenerator = new WallsGenerator(gameField, MAX_WALLS);
+        snake = new Snake(gameField, foodGenerator, wallsGenerator);
         graphics = new Graphics(gameField);
         stage.setTitle("PYTHON");
         Group root = new Group();
@@ -78,33 +99,77 @@ public class SnakeGame extends Application {
                     direction = RIGHT;
                 }
             }
+            else if (keyCode == KeyCode.ENTER){
+                if (gameOver){
+                    restart();
+                }
+            }
+            else if (keyCode == KeyCode.ESCAPE){
+                if (gameOver){
+                    settings(stage);
+                }
+            }
         });
-        foodGenerator.generateFood(snake.getPython());
+
+        wallsGenerator.generateWalls(snake);
+        foodGenerator.generateFood(wallsGenerator, snake);
         snake.collision();
-        timeline = new Timeline(new KeyFrame(Duration.millis(130), e -> crawling(graphicsContext)));
+        switch (LEVEL){
+            case EASY -> timeline = new Timeline(new KeyFrame(Duration.millis(220), e -> crawling(graphicsContext)));
+            case MEDIUM -> timeline = new Timeline(new KeyFrame(Duration.millis(160), e -> crawling(graphicsContext)));
+            case HARD -> timeline = new Timeline(new KeyFrame(Duration.millis(120), e -> crawling(graphicsContext)));
+            case GOD ->  timeline = new Timeline(new KeyFrame(Duration.millis(80), e -> crawling(graphicsContext)));
+
+        }
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
+
+    private void settings(Stage primaryStage) {
+        primaryStage.getScene().getWindow().hide();
+        SettingsScreen settingsScreen = new SettingsScreen();
+        Stage stage = new Stage();
+        try {
+            settingsScreen.start(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void restart(){
+        timeline.play();
+        gameOver = false;
+        wallsGenerator.remove();
+        foodGenerator.remove();
+        snake.remove();
+        direction = RIGHT;
+        wallsGenerator.generateWalls(snake);
+        foodGenerator.generateFood(wallsGenerator, snake);
+        score = snake.getScore();
+    }
+
 
     private void crawling(GraphicsContext graphicsContext) {
         if (snake.collision()) {
             timeline.stop();
             graphics.drawCollision(graphicsContext, snake.getCollisionPoint());
             graphics.drawGameOver(graphicsContext, score);
+            gameOver = true;
             return;
         }
-
-        if (score == scoreForWin){
+        if (score == SCORE_FOR_WIN){
             timeline.stop();
             graphics.drawWin(graphicsContext);
+            gameOver = true;
             return;
         }
         graphics.drawBackGround(graphicsContext);
+        graphics.drawWalls(graphicsContext, wallsGenerator.getWalls());
         graphics.drawPython(graphicsContext, snake.getPythonHead(), snake.getPython());
-        graphics.drawFood(graphicsContext, foodGenerator.getFood());
         snake.devourFood();
+        graphics.drawFood(graphicsContext, foodGenerator.getFood());
         score = snake.getScore();
-        graphics.drawScore(graphicsContext, score, scoreForWin);
+        graphics.drawScore(graphicsContext, score, SCORE_FOR_WIN);
         if (snake.getPython().size() > 1) {
             Point crawling = snake.getPython().get(snake.getPython().size() - 1);
             crawling.x = snake.getPythonHead().x;
@@ -129,7 +194,4 @@ public class SnakeGame extends Application {
 
 
 
-    public static void main(String[] args) {
-        launch();
-    }
 }
