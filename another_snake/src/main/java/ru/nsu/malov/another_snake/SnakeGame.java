@@ -45,7 +45,7 @@ public class SnakeGame extends Application {
     private Timeline timeline;
     private int direction;
     private int score;
-    private boolean gameOver;
+    private boolean pause;
 
     public SnakeGame(ru.nsu.malov.another_snake.Parameters parameters) {
         HORIZONTAL_SIZE = parameters.getHORIZONTAL_SIZE();
@@ -58,7 +58,7 @@ public class SnakeGame extends Application {
         MAX_FOOD = parameters.getMAX_FOOD();
         LEVEL = parameters.getLEVEL();
         score = 0;
-        gameOver = false;
+        pause = false;
     }
 
     @Override
@@ -100,14 +100,17 @@ public class SnakeGame extends Application {
                 }
             }
             else if (keyCode == KeyCode.ENTER){
-                if (gameOver){
+                if (pause){
                     restart();
                 }
             }
             else if (keyCode == KeyCode.ESCAPE){
-                if (gameOver){
+                if (pause){
                     settings(stage);
                 }
+            }
+            else if (keyCode == KeyCode.SPACE){
+                pause(graphicsContext);
             }
         });
 
@@ -125,6 +128,24 @@ public class SnakeGame extends Application {
         timeline.play();
     }
 
+    private void pause(GraphicsContext graphicsContext) {
+        if (!pause){
+            pause = true;
+            timeline.stop();
+            graphics.drawPause(graphicsContext);
+        }
+        else{
+            pause = false;
+            graphics.drawBackGround(graphicsContext);
+            graphics.drawWalls(graphicsContext, wallsGenerator.getWalls());
+            graphics.drawPython(graphicsContext, snake.getPythonHead(), snake.getPython());
+            graphics.drawFood(graphicsContext, foodGenerator.getFood());
+            score = snake.getScore();
+            graphics.drawScore(graphicsContext, score, SCORE_FOR_WIN);
+            timeline.play();
+        }
+    }
+
     private void settings(Stage primaryStage) {
         primaryStage.getScene().getWindow().hide();
         SettingsScreen settingsScreen = new SettingsScreen();
@@ -138,7 +159,7 @@ public class SnakeGame extends Application {
 
     private void restart(){
         timeline.play();
-        gameOver = false;
+        pause = false;
         wallsGenerator.remove();
         foodGenerator.remove();
         snake.remove();
@@ -154,13 +175,13 @@ public class SnakeGame extends Application {
             timeline.stop();
             graphics.drawCollision(graphicsContext, snake.getCollisionPoint());
             graphics.drawGameOver(graphicsContext, score);
-            gameOver = true;
+            pause = true;
             return;
         }
         if (score == SCORE_FOR_WIN){
             timeline.stop();
             graphics.drawWin(graphicsContext);
-            gameOver = true;
+            pause = true;
             return;
         }
         graphics.drawBackGround(graphicsContext);

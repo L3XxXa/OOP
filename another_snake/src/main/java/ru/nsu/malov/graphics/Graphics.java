@@ -74,7 +74,21 @@ public class Graphics {
         graphicsContext.setFill(Color.web("05f53d"));
         graphicsContext.setFont(new Font("Digital-7", 50));
         graphicsContext.fillText("Game Over" + "\n" + "Score " + score + "\n" + "Press ENTER to "+ "\n" + "restart the game" + "\n" + "Press ESC to" + "\n" + "open settings",
-                gameField.getWIDTH() / 4.5, gameField.getHEIGHT() / 3.0);
+                gameField.getWIDTH() / 3.6, gameField.getHEIGHT() / 3.0);
+    }
+
+    public void drawPause(GraphicsContext graphicsContext){
+        drawBackGround(graphicsContext);
+        graphicsContext.setFill(Color.web("05f53d"));
+        graphicsContext.setFont(new Font("Regular", 50));
+        graphicsContext.fillText("""
+                Game paused
+                Press ENTER to
+                restart the game
+                Press ESC to
+                open settings
+                Press SPACE to
+                continue""", gameField.getWIDTH() / 3.6, gameField.getHEIGHT() / 3.5);
     }
 
     public void drawWin(GraphicsContext graphicsContext) {
@@ -88,5 +102,6 @@ public class Graphics {
                 Press ESC to
                 open settings""", gameField.getWIDTH() / 4.5, gameField.getHEIGHT() / 2.5);
     }
+
 
 }

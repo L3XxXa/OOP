@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 public class MainScreen extends Application {
     public Button start;
+    public Button controllersScreen;
 
     public static void main(String[] args) {
         launch();
@@ -36,5 +37,16 @@ public class MainScreen extends Application {
 
     public void onExitButtonClick(ActionEvent actionEvent) {
         System.exit(0);
+    }
+
+    public void onControllersClick(ActionEvent actionEvent) {
+        start.getScene().getWindow().hide();
+        Stage stage = new Stage();
+        ControllersScreen controllersScreen = new ControllersScreen();
+        try {
+            controllersScreen.start(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -19,6 +19,7 @@ public class SettingsScreen extends Application {
     public TextField scoreForWin;
     public Label error;
     public Button startGame;
+    public Button toMainScreen;
 
     private int foodAmountInt;
     private int fieldSizeInt;
@@ -68,7 +69,7 @@ public class SettingsScreen extends Application {
         } else {
             scoreForWinInt = Integer.parseInt(scoreForWin.getText());
         }
-        if (fieldSizeInt <= 7 || foodAmountInt <= 0 || wallsAmountInt < 0 || scoreForWinInt < 0) {
+        if (fieldSizeInt <= 8 || foodAmountInt <= 0 || wallsAmountInt < 0 || scoreForWinInt < 0) {
             error.setVisible(true);
         } else {
             startGame.getScene().getWindow().hide();
@@ -76,6 +77,17 @@ public class SettingsScreen extends Application {
             SnakeGame snakeGame = new SnakeGame(parameters);
             Stage stage = new Stage();
             snakeGame.start(stage);
+        }
+    }
+
+    public void onToMainScreenPressed(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        toMainScreen.getScene().getWindow().hide();
+        MainScreen mainScreen = new MainScreen();
+        try {
+            mainScreen.start(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

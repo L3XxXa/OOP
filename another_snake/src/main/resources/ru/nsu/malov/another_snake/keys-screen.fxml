@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: black" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.malov.another_snake.ControllersScreen">
+   <children>
+      <ImageView fx:id="up" fitHeight="50.0" fitWidth="47.0" layoutX="83.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white">
+         <Image url="@/computer_key_Arrow_Up.png" />
+      </ImageView>
+      <ImageView fx:id="left" fitHeight="50.0" fitWidth="47.0" layoutX="83.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white">
+         <image>
+            <Image url="@/computer_key_Arrow_Down.png" />
+         </image></ImageView>
+      <ImageView fx:id="down" fitHeight="50.0" fitWidth="47.0" layoutX="36.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white">
+         <Image url="@/computer_key_Arrow_Left.png" />
+      </ImageView>
+      <ImageView fx:id="right" fitHeight="50.0" fitWidth="47.0" layoutX="130.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white">
+         <Image url="@/computer_key_Arrow_Right.png" />
+      </ImageView>
+      <Label layoutX="206.0" layoutY="65.0" text="Controll the snake" textFill="#05f53d">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="up1" fitHeight="44.0" fitWidth="54.0" layoutX="34.0" layoutY="246.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white">
+         <image>
+            <Image url="@/computer_key_Esc.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="up11" fitHeight="44.0" fitWidth="269.0" layoutX="36.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white">
+         <image>
+            <Image url="@/computer_key_Space_bar.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="322.0" layoutY="138.0" prefHeight="44.0" prefWidth="106.0" text="Pause" textFill="#05f53d">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="215.0" prefHeight="21.0" prefWidth="407.0" text="While paused" textFill="#05f53d">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="256.0" prefHeight="21.0" prefWidth="354.0" text="Settings" textFill="#05f53d">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="up12" fitHeight="44.0" fitWidth="105.0" layoutX="35.0" layoutY="304.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white">
+         <image>
+            <Image url="@/computer_key_Enter.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="143.0" layoutY="287.0" prefHeight="77.0" prefWidth="397.0" text="Restart" textFill="#05f53d">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="startGame" layoutX="337.0" layoutY="642.0" mnemonicParsing="false" onAction="#onStartPressed" prefHeight="41.0" prefWidth="226.0" text="Play" />
+      <Button fx:id="toMainScreen" layoutX="337.0" layoutY="711.0" mnemonicParsing="false" onAction="#onToMainScreenPressed" prefHeight="41.0" prefWidth="226.0" text="Main Screen" />
+   </children>
+</AnchorPane>

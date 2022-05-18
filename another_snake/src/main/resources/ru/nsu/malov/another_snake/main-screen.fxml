@@ -12,7 +12,8 @@
             </font>
         </Label>
       <Button fx:id="start" layoutX="159.0" layoutY="391.0" mnemonicParsing="false" onAction="#onStartButtonClick" prefHeight="47.0" prefWidth="587.0" text="Start" />
-      <Button layoutX="157.0" layoutY="477.0" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="47.0" prefWidth="587.0" text="Exit" />
+      <Button layoutX="157.0" layoutY="477.0" mnemonicParsing="false"  prefHeight="47.0" prefWidth="587.0" text="Controllers" onAction="#onControllersClick"/>
+      <Button layoutX="157.0" layoutY="563.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="587.0" text="Exit" fx:id="controllersScreen"  onAction="#onExitButtonClick"/>
     </children>
 
 </AnchorPane>
