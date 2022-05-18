@@ -110,6 +110,10 @@ public class Snake {
         return score;
     }
 
+    public void setPythonHead(Point pythonHead) {
+        this.pythonHead = pythonHead;
+    }
+
     public Point getPythonHead() {
         return pythonHead;
     }
