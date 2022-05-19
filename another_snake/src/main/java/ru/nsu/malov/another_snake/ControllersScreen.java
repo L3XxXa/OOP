@@ -2,15 +2,10 @@ package ru.nsu.malov.another_snake;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
-import java.io.File;
 
 public class ControllersScreen extends Application {
     public Button toMainScreen;
@@ -25,6 +20,13 @@ public class ControllersScreen extends Application {
         primaryStage.show();
     }
 
+
+    /**
+     * On button toMainScreen click listener
+     * Starts the stage with main menu
+     *
+     * @param actionEvent
+     */
     public void onToMainScreenPressed(ActionEvent actionEvent) {
         Stage stage = new Stage();
         toMainScreen.getScene().getWindow().hide();
@@ -36,6 +38,12 @@ public class ControllersScreen extends Application {
         }
     }
 
+    /**
+     * On button start click listener
+     * Start the stage with settings of the game
+     *
+     * @param actionEvent
+     */
     public void onStartPressed(ActionEvent actionEvent) {
         startGame.getScene().getWindow().hide();
         SettingsScreen settingsScreen = new SettingsScreen();

@@ -16,7 +16,14 @@ public class Snake {
     private Point collisionPoint;
     private int score;
 
-    public Snake (GameField gameField, FoodGenerator foodGenerator, WallsGenerator wallsGenerator){
+    /**
+     * Constructor for the snake
+     *
+     * @param gameField      - game field
+     * @param foodGenerator  - food generator
+     * @param wallsGenerator - walls generator
+     */
+    public Snake(GameField gameField, FoodGenerator foodGenerator, WallsGenerator wallsGenerator) {
         this.gameField = gameField;
         this.foodGenerator = foodGenerator;
         this.wallsGenerator = wallsGenerator;
@@ -32,44 +39,50 @@ public class Snake {
         pythonHead = python.get(0);
     }
 
-    public void remove(){
+    /**
+     * Removes snake from the game field
+     */
+    public void remove() {
         python.removeAll(python);
         score = 0;
         initPython();
     }
+
     /**
      * Method to crawl up
-     * */
-    public void crawlUp(){
+     */
+    public void crawlUp() {
         pythonHead.y--;
     }
 
     /**
      * Method to crawl down
-     * */
-    public void crawlDown(){
+     */
+    public void crawlDown() {
         pythonHead.y++;
     }
 
     /**
      * Method to crawl left
-     * */
-    public void crawlLeft(){
+     */
+    public void crawlLeft() {
         pythonHead.x--;
     }
 
 
     /**
      * Method to crawl right
-     * */
-    public void crawlRight(){
+     */
+    public void crawlRight() {
         pythonHead.x++;
     }
 
     /**
-     * Collision with snake itself or with borders of the game field
-     * */
-    public boolean collision(){
+     * Collision with snake itself, with borders of the game field or with walls
+     *
+     * @return true if snake run into obstacle
+     */
+    public boolean collision() {
         if (pythonHead.x < 0 || pythonHead.y < 0 ||
                 pythonHead.x * gameField.getPOINT_SIZE() >= gameField.getWIDTH() ||
                 pythonHead.y * gameField.getPOINT_SIZE() >= gameField.getHEIGHT()) {
@@ -82,8 +95,8 @@ public class Snake {
                 return true;
             }
         }
-        for (Point point:wallsGenerator.getWalls()) {
-            if (point.getX() == pythonHead.getX() && point.getY() == pythonHead.getY()){
+        for (Point point : wallsGenerator.getWalls()) {
+            if (point.getX() == pythonHead.getX() && point.getY() == pythonHead.getY()) {
                 collisionPoint = python.get(0);
                 return true;
             }
@@ -92,9 +105,9 @@ public class Snake {
     }
 
     /**
-     * Method to eat food. Extends body of the snake
-     * */
-    public void devourFood(){
+     * Eats food, increment score and extends body of the snake
+     */
+    public void devourFood() {
         for (int i = 0; i < foodGenerator.getFood().size(); i++) {
             if (pythonHead.getX() == foodGenerator.getFood().get(i).getX()
                     && pythonHead.getY() == foodGenerator.getFood().get(i).getY()) {
@@ -106,30 +119,66 @@ public class Snake {
         }
     }
 
+    /**
+     * Getter for score
+     *
+     * @return score
+     */
     public int getScore() {
         return score;
     }
 
+
+    /**
+     * Setter for the python head
+     *
+     * @param pythonHead - new point of the snake head
+     */
     public void setPythonHead(Point pythonHead) {
         this.pythonHead = pythonHead;
     }
 
+    /**
+     * Getter for python head
+     *
+     * @return python head
+     */
     public Point getPythonHead() {
         return pythonHead;
     }
 
+    /**
+     * Getter for python
+     *
+     * @return python
+     */
     public List<Point> getPython() {
         return python;
     }
 
+    /**
+     * Getter for collision point
+     *
+     * @return collision point
+     */
     public Point getCollisionPoint() {
         return collisionPoint;
     }
 
+    /**
+     * Getter for STARTING_X
+     *
+     * @return starting X coordinate
+     */
     public int getSTARTING_X() {
         return STARTING_X;
     }
 
+    /**
+     * Getter for STARTING_Y
+     *
+     * @return starting Y coordinate
+     */
     public int getSTARTING_Y() {
         return STARTING_Y;
     }

@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class SettingsScreen extends Application {
@@ -36,17 +35,21 @@ public class SettingsScreen extends Application {
         primaryStage.show();
     }
 
+    /**
+     * On start button click listener
+     * Parse parameters and set up the game with 'Parameters' class
+     * Starts new stage with the game
+     *
+     * @param actionEvent
+     */
     public void onStartPressed(ActionEvent actionEvent) {
-        if (level.getValue().equals("Easy")){
+        if (level.getValue().equals("Easy")) {
             levelInt = 1;
-        }
-        else if (level.getValue().equals("Medium")){
+        } else if (level.getValue().equals("Medium")) {
             levelInt = 2;
-        }
-        else if (level.getValue().equals("Hard")){
+        } else if (level.getValue().equals("Hard")) {
             levelInt = 3;
-        }
-        else {
+        } else {
             levelInt = 4;
         }
         if (foodAmount.getText().equals("")) {

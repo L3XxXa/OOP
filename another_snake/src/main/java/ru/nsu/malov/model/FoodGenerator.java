@@ -3,7 +3,6 @@ package ru.nsu.malov.model;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class FoodGenerator {
     private final int MAX_FOOD;
@@ -12,7 +11,13 @@ public class FoodGenerator {
 
     private List<Point> food;
 
-    public FoodGenerator(GameField gameField, int MAX_FOOD){
+    /**
+     * Constructor for the food generator class
+     *
+     * @param gameField - game field
+     * @param MAX_FOOD  - maximal amount of the food on the field
+     */
+    public FoodGenerator(GameField gameField, int MAX_FOOD) {
         this.MAX_FOOD = MAX_FOOD;
         HEIGHT = gameField.getROWS();
         WIDTH = gameField.getCOLUMNS();
@@ -20,6 +25,13 @@ public class FoodGenerator {
 
     }
 
+
+    /**
+     * Generates food and checks that it is not in the snake or wall
+     *
+     * @param wallsGenerator - walls generator
+     * @param snake          - snake
+     */
     public void generateFood(WallsGenerator wallsGenerator, Snake snake) {
         while (food.size() < MAX_FOOD) {
             Point newFoodItem;
@@ -30,11 +42,19 @@ public class FoodGenerator {
         }
     }
 
+    /**
+     * Getter for List food
+     *
+     * @return list with food
+     */
     public List<Point> getFood() {
         return food;
     }
 
-    public void remove(){
+    /**
+     * Removes all food from the field
+     */
+    public void remove() {
         food.removeAll(food);
     }
 }

@@ -24,6 +24,12 @@ public class MainScreen extends Application {
         primaryStage.show();
     }
 
+    /**
+     * On button start click listener
+     * Starts the stage with the settings screen
+     *
+     * @param actionEvent
+     */
     public void onStartButtonClick(ActionEvent actionEvent) {
         start.getScene().getWindow().hide();
         SettingsScreen settingsScreen = new SettingsScreen();
@@ -35,10 +41,22 @@ public class MainScreen extends Application {
         }
     }
 
+    /**
+     * On button exit click listener
+     * Closes the game
+     *
+     * @param actionEvent
+     */
     public void onExitButtonClick(ActionEvent actionEvent) {
         System.exit(0);
     }
 
+    /**
+     * On button controllers click listener
+     * Starts new stage with controllers screen
+     *
+     * @param actionEvent
+     */
     public void onControllersClick(ActionEvent actionEvent) {
         start.getScene().getWindow().hide();
         Stage stage = new Stage();
