@@ -1,15 +1,26 @@
 package ru.nsu.malov.dsl
 
 class DSL {
-    fun Student.group(block: Group.() -> Unit) : Group = Group().apply(block)
+    fun student(block: StudentBuilder.() -> Unit) : Student = StudentBuilder().apply(block).build()
 
-    fun student(block: Student.() -> Unit) : Student = Student().apply(block)
+    val student = student {
+        name = "Malov Alexey"
+        nickName = "L3XxXa"
+        repoUrl = "onlyfans.com"
+        group {
+            name = 20214
+        }
+        givenTasks {
+            givenTasks {
+                taskId = "Task 2_4_1"
+                name = "DSL"
+                deadLine = "18-05-2022"
+            }
+        }
+    }
+}
 
-    fun task(block: Task.() -> Unit) : Task = Task().apply(block)
-
-    fun Lesson(block: Lesson.() -> Unit) : Lesson = Lesson().apply(block)
-
-    fun mark(block: Mark.() -> Unit) : Mark = Mark().apply(block)
-
-    fun givenTask(block: GivenTask.() -> Unit) : GivenTask = GivenTask().apply(block)
+fun main() {
+    val dsl = DSL()
+    println(dsl.student)
 }

@@ -1,5 +1,5 @@
 package ru.nsu.malov.dsl
 
-import java.util.Date
+import java.time.LocalDate
 
-data class Mark(var name: Int? = null, var date: Date ? = null)
+data class Mark(var name: Int, var date: LocalDate)
