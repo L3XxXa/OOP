@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: black" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.malov.another_snake.MainScreen">
+    <children>
+        <Label layoutX="316.0" layoutY="200.0" style="-fx-text-fill: #05f53d;" text="SNAKE" textFill="#05f53d">
+            <font>
+                <Font name="Digital-7" size="80" />
+            </font>
+        </Label>
+      <Button fx:id="start" layoutX="159.0" layoutY="391.0" mnemonicParsing="false" onAction="#onStartButtonClick" prefHeight="47.0" prefWidth="587.0" text="Start" />
+      <Button layoutX="157.0" layoutY="477.0" mnemonicParsing="false"  prefHeight="47.0" prefWidth="587.0" text="Controllers" onAction="#onControllersClick"/>
+      <Button layoutX="157.0" layoutY="563.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="587.0" text="Exit" fx:id="controllersScreen"  onAction="#onExitButtonClick"/>
+    </children>
+
+</AnchorPane>

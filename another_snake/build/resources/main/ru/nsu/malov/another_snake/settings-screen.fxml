@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: black" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.malov.another_snake.SettingsScreen">
+   <children>
+      <Button fx:id="startGame" layoutX="337.0" layoutY="642.0" mnemonicParsing="false" onAction="#onStartPressed" prefHeight="41.0" prefWidth="226.0" text="Play" />
+      <ChoiceBox fx:id="level" layoutX="115.0" layoutY="140.0" prefWidth="150.0" value="Easy">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="Easy" />
+               <String fx:value="Medium" />
+               <String fx:value="Hard" />
+               <String fx:value="GOD" />
+            </FXCollections>
+         </items>
+      </ChoiceBox>
+      <Label layoutX="115.0" layoutY="116.0" prefHeight="24.0" prefWidth="150.0" text="Level" textFill="#05f53d" />
+      <Label layoutX="115.0" layoutY="178.0" text="Field size " textFill="#05f53d" />
+      <TextField fx:id="fieldSize" layoutX="115.0" layoutY="194.0" prefHeight="24.0" prefWidth="150.0" promptText="&gt;8" />
+      <Label layoutX="115.0" layoutY="229.0" text="Food amount" textFill="#05f53d" />
+      <TextField fx:id="foodAmount" layoutX="115.0" layoutY="245.0" prefHeight="24.0" prefWidth="150.0" promptText="&gt;0" />
+      <Label layoutX="115.0" layoutY="281.0" text="Walls amount" textFill="#05f53d" />
+      <TextField fx:id="wallsAmount" layoutX="115.0" layoutY="297.0" prefHeight="24.0" prefWidth="150.0" promptText="&gt;=0" />
+      <Label layoutX="113.0" layoutY="330.0" text="Score for win" textFill="#05f53d" />
+      <TextField fx:id="scoreForWin" layoutX="115.0" layoutY="346.0" prefHeight="24.0" prefWidth="150.0" promptText="&gt;0" />
+      <Label fx:id="error" layoutX="359.0" layoutY="591.0" text="UNSUPPORTED PARAMETER" textFill="RED" visible="false" />
+      <Button fx:id="toMainScreen" layoutX="337.0" layoutY="711.0" mnemonicParsing="false" onAction="#onToMainScreenPressed" prefHeight="41.0" prefWidth="226.0" text="Main Screen" />
+   </children>
+</AnchorPane>
