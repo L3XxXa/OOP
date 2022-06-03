@@ -1,5 +1,5 @@
 package ru.nsu.malov.dsl
 
-import java.util.*
+import java.time.LocalDate
 
-data class GivenTask(var taskId: String, var deadline: Date)
+data class GivenTask(var taskId: String, var deadline: LocalDate)

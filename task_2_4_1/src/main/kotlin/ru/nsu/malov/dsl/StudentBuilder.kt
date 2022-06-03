@@ -10,11 +10,27 @@ class StudentBuilder {
         group = GroupBuilder().apply(block).build()
     }
 
-    var givenTasks = mutableListOf<GivenTask>()
+    var givenTask = mutableListOf<GivenTask>()
 
-    fun givenTasks(block: GivenTaskBuilder.() -> Unit){
-        givenTasks.add(GivenTaskBuilder().apply(block).build())
+    fun givenTask(block: GivenTaskBuilder.() -> Unit){
+        givenTask.add(GivenTaskBuilder().apply(block).build())
+    }
+    var lessons = mutableListOf<Lesson>()
+    fun lesson(block: LessonsBuilder.() -> Unit){
+        lessons.add(LessonsBuilder().apply(block).build())
     }
 
-    fun build(): Student = Student(nickName, name, repoUrl, group, givenTasks)
+    fun build(): Student {
+        if (nickName == ""){
+            throw IllegalArgumentException("Nickname is required")
+        }
+        else if (name == "") {
+            throw IllegalArgumentException("Name is required")
+        }
+        else if (repoUrl == ""){
+            throw IllegalArgumentException("URL of repository is required")
+        }
+
+        return Student(nickName, name, repoUrl, group, givenTask, lessons)
+    }
 }

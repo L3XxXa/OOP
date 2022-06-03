@@ -3,6 +3,7 @@ package ru.nsu.malov.dsl
 class DSL {
     fun student(block: StudentBuilder.() -> Unit) : Student = StudentBuilder().apply(block).build()
 
+
     val student = student {
         name = "Malov Alexey"
         nickName = "L3XxXa"
@@ -10,12 +11,12 @@ class DSL {
         group {
             name = 20214
         }
-        givenTasks {
-            givenTasks {
-                taskId = "Task 2_4_1"
-                name = "DSL"
-                deadLine = "18-05-2022"
-            }
+        givenTask {
+            taskId = "Task 2_4_1"
+            deadLine = "15-10-2022"
+        }
+        lesson{
+            lesson = "20-02-2022"
         }
     }
 }
