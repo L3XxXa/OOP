@@ -15,7 +15,13 @@ class MarkBuilder {
         }
 
 
-    fun build() : Mark{
+    fun build(): Mark {
+        if (name == 0) {
+            throw IllegalArgumentException("Mark is required")
+        }
+        if (markDate == LocalDate.parse("01-01-0001", dateTimeFormatter)){
+            throw IllegalArgumentException("Deadline is required")
+        }
         return Mark(name, markDate)
     }
 }
