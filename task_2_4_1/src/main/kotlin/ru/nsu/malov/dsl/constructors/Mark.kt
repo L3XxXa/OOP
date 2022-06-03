@@ -1,4 +1,4 @@
-package ru.nsu.malov.dsl
+package ru.nsu.malov.dsl.constructors
 
 import java.time.LocalDate
 
