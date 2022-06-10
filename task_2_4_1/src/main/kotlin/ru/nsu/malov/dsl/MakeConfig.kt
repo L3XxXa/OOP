@@ -1,10 +1,8 @@
 package ru.nsu.malov.dsl
 
-import ru.nsu.malov.dsl.builders.StudentBuilder
-import ru.nsu.malov.dsl.constructors.*
 import java.io.File
 
-class ReadWriteConfigs {
+class MakeConfig {
     private val dsl: DSL = DSL()
     fun setUpStudent(name: String, nickname: String, repoUrl: String, group: Int) {
         val file = File("./configs/$name.kts")

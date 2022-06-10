@@ -14,7 +14,7 @@ class DSL {
 
 fun main() {
     val dsl = DSL()
-    val readWriteConfigs = ReadWriteConfigs()
-    readWriteConfigs.setUpStudent("Semen Persunov", "AnonSDvacha", "2ch.hk", 420)
+    val makeConfig = MakeConfig()
+    makeConfig.setUpStudent("Semen Persunov", "AnonSDvacha", "2ch.hk", 420)
 
 }
