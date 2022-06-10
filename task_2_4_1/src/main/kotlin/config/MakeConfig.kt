@@ -1,4 +1,4 @@
-package ru.nsu.malov.dsl
+package config
 
 import java.io.File
 
@@ -10,11 +10,8 @@ class MakeConfig {
         }
         if (file.length() == 0L) {
             file.writeText(
-                "import ru.nsu.malov.dsl.builders.StudentBuilder\n" +
-                        "import ru.nsu.malov.dsl.constructors.Student\n" +
-                        "import ru.nsu.malov.dsl.constructors.TaskList\n" +
-                        "\n\n" +
-                        "student {\n" +
+                "import ru.nsu.malov.dsl.DSL\n\n" +
+                        "DSL().student {\n" +
                         "\tname = \"$name\"\n" +
                         "\tnickname = \"$nickname\" \n" +
                         "\trepoUrl = \"$repoUrl\" \n " +
@@ -25,7 +22,7 @@ class MakeConfig {
                         "\n\t\tlike" +
                         "\n\t\t\tgivenTask {\n" +
                         "\t\t\t\ttaskId = \"task 2.4.1\"\n" +
-                        "\t\t\t\tdeadLine = \"20-12-2022\"\n" +
+                        "\t\t\t\tdeadLine = \"dd-MM-yyyy\"\n" +
                         "\t\t\t}" +
                         "\n\t\t*/" +
                         "\n\t}\n" +
@@ -35,7 +32,7 @@ class MakeConfig {
                         "\n\t\tlike" +
                         "\n\t\t\tlesson {\n" +
                         "\t\t\t\tattendance = true\n" +
-                        "\t\t\t\tdate = \"20-12-2022\"\n" +
+                        "\t\t\t\tdate = \"dd-MM-yyyy\"\n" +
                         "\t\t\t}" +
                         "\n\t\t*/" +
                         "\n\t}\n" +
@@ -45,7 +42,7 @@ class MakeConfig {
                         "\n\t\tlike" +
                         "\n\t\t\tmark {\n" +
                         "\t\t\t\tname = 5\n" +
-                        "\t\t\t\tdate = \"20-12-2022\"\n" +
+                        "\t\t\t\tdate = \"dd-MM-yyyy\"\n" +
                         "\t\t\t}" +
                         "\n\t\t*/" +
                         "\n\t}\n" +

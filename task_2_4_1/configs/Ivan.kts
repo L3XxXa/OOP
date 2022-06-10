@@ -1,14 +1,13 @@
-import ru.nsu.malov.dsl.builders.StudentBuilder
-import ru.nsu.malov.dsl.constructors.Student
-import ru.nsu.malov.dsl.constructors.TaskList
+import ru.nsu.malov.dsl.DSL
 
 
-student {
-	name = "Semen Persunov"
-	nickname = "AnonSDvacha" 
-	repoUrl = "2ch.hk" 
+
+DSL().student {
+	name = "Ivan"
+	nickname = "ivan" 
+	repoUrl = "repo" 
  	group {
- 		name = 420
+ 		name = 1
 	}
 	tasks {
 		/*
@@ -16,7 +15,7 @@ student {
 		like
 			givenTask {
 				taskId = "task 2.4.1"
-				deadLine = "20-12-2022"
+				deadLine = "dd-MM-yyyy"
 			}
 		*/
 	}
@@ -26,7 +25,7 @@ student {
 		like
 			lesson {
 				attendance = true
-				date = "20-12-2022"
+				date = "dd-MM-yyyy"
 			}
 		*/
 	}
@@ -36,7 +35,7 @@ student {
 		like
 			mark {
 				name = 5
-				date = "20-12-2022"
+				date = "dd-MM-yyyy"
 			}
 		*/
 	}

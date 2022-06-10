@@ -1,10 +1,8 @@
-import ru.nsu.malov.dsl.builders.StudentBuilder
-import ru.nsu.malov.dsl.constructors.Student
-import ru.nsu.malov.dsl.constructors.TaskList
+import ru.nsu.malov.dsl.DSL
 
-student {
-    name = "Malov Alexey"
+DSL().student {
     nickName = "L3XxXa"
+    name = "Malov Alexey"
     repoUrl = "onlyfans.com"
     group {
         name = 20214
@@ -29,20 +27,6 @@ student {
         mark {
             name = 5
             date = "12-12-2022"
-        }
-    }
-}
-taskList {
-    tasks {
-        task {
-            taskId = "Task 2.4.1"
-            taskName = "DSL"
-            score = 2
-        }
-        task {
-            taskId = "Task 2.3.1"
-            taskName = "SNAKE"
-            score = 2
         }
     }
 }

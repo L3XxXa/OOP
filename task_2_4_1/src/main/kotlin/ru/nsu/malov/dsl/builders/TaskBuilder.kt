@@ -1,7 +1,8 @@
-package ru.nsu.malov.dsl
+package ru.nsu.malov.dsl.builders
 
+import ru.nsu.malov.dsl.constructors.Task
+import ru.nsu.malov.dsl.sentinels.Tasks
 import ru.nsu.malov.dsl.constructors.TaskList
-import ru.nsu.malov.dsl.sentinels.GivenTasks
 
 class TaskBuilder {
 
