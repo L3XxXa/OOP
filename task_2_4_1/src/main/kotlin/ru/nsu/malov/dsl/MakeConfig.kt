@@ -3,7 +3,6 @@ package ru.nsu.malov.dsl
 import java.io.File
 
 class MakeConfig {
-    private val dsl: DSL = DSL()
     fun setUpStudent(name: String, nickname: String, repoUrl: String, group: Int) {
         val file = File("./configs/$name.kts")
         if (!file.exists()) {
@@ -52,6 +51,10 @@ class MakeConfig {
                         "\n\t}\n" +
                         "}"
             )
+            println("Successfully created a config")
+        }
+        else {
+            println("Config already exists")
         }
     }
 }

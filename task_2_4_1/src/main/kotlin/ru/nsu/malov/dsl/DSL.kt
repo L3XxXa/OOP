@@ -12,9 +12,12 @@ class DSL {
 
 
 
-fun main() {
-    val dsl = DSL()
-    val makeConfig = MakeConfig()
-    makeConfig.setUpStudent("Semen Persunov", "AnonSDvacha", "2ch.hk", 420)
-
+fun main(args: Array<String>) {
+    if(args.isEmpty()) {
+        println("-makeConfig - create config file")
+    }
+    if (args[0] == "-makeConfig"){
+        val makeConfig = MakeConfig()
+        makeConfig.setUpStudent("Semen Persunov", "AnonSDvacha", "2ch.hk", 420)
+    }
 }
