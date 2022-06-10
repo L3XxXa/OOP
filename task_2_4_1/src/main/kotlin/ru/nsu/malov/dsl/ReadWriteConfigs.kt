@@ -1,6 +1,6 @@
 package ru.nsu.malov.dsl
 
-import ru.nsu.malov.dsl.constructors.GivenTask
+import ru.nsu.malov.dsl.constructors.*
 import java.io.File
 
 class ReadWriteConfigs {
@@ -18,6 +18,10 @@ class ReadWriteConfigs {
                     "import ru.nsu.malov.dsl.constructors.TaskList")
         }
         val tasks = mutableListOf<GivenTask>()
-//        val
+        val studentGroup = Group(group)
+        val lessons = mutableListOf<Lesson>()
+        val marks = mutableListOf<Mark>()
+        val student = Student(nickname, name, repoUrl, studentGroup, tasks, lessons, marks)
+
     }
 }
