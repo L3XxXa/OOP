@@ -2,6 +2,7 @@ package ru.nsu.malov.application
 
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.JGitInternalException
+import org.eclipse.jgit.api.errors.RefNotFoundException
 import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.eclipse.jgit.transport.URIish
 import ru.nsu.malov.config.MakeConfig
@@ -87,10 +88,16 @@ class Application {
             println("No such directory. Did you clone this repo?")
         }
         println("Branch to pull")
+        val branchName = readLine()
         val git = Git.open(File("./repos/$name"))
+        try {
+            git.checkout().setName(branchName).call()
+        } catch (e: RefNotFoundException){
+            git.checkout().setCreateBranch(true).setName(branchName).call()
+            git.checkout().setName(branchName).call()
+        }
         git.pull().remote = name
-        git.pull().remoteBranchName = readLine()
-        println(git.pull().call())
+        git.pull().call()
 
     }
 
