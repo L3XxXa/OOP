@@ -3,7 +3,7 @@ import ru.nsu.malov.dsl.DSL
 DSL().student {
     nickName = "L3XxXa"
     name = "Malov Alexey"
-    repoUrl = "onlyfans.com"
+    repoUrl = "https://github.com/L3XxXa/OOP.git"
     group {
         name = 20214
     }

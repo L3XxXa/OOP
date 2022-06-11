@@ -1,4 +1,4 @@
-package config
+package ru.nsu.malov.config
 
 import java.io.File
 
@@ -13,7 +13,7 @@ class MakeConfig {
                 "import ru.nsu.malov.dsl.DSL\n\n" +
                         "DSL().student {\n" +
                         "\tname = \"$name\"\n" +
-                        "\tnickname = \"$nickname\" \n" +
+                        "\tnickName = \"$nickname\" \n" +
                         "\trepoUrl = \"$repoUrl\" \n " +
                         "\tgroup {\n \t\tname = $group\n\t}\n" +
                         "\ttasks {\n" +

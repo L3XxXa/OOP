@@ -21,6 +21,7 @@
         implementation(kotlin("compiler-embeddable"))
         implementation(kotlin("script-util"))
         implementation(kotlin("scripting-compiler-embeddable"))
+        implementation("org.eclipse.jgit:org.eclipse.jgit:6.1.0.202203080745-r")
     }
 
     tasks.test {
