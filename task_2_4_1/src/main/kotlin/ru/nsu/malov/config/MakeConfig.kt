@@ -9,46 +9,50 @@ class MakeConfig {
             file.createNewFile()
         }
         if (file.length() == 0L) {
-            file.writeText(
-                "import ru.nsu.malov.dsl.DSL\n\n" +
-                        "DSL().student {\n" +
-                        "\tname = \"$name\"\n" +
-                        "\tnickName = \"$nickname\" \n" +
-                        "\trepoUrl = \"$repoUrl\" \n " +
-                        "\tgroup {\n \t\tname = $group\n\t}\n" +
-                        "\ttasks {\n" +
-                        "\t\t/*\n" +
-                        "\t\twrite given tasks for this student here" +
-                        "\n\t\tlike" +
-                        "\n\t\t\tgivenTask {\n" +
-                        "\t\t\t\ttaskId = \"task 2.4.1\"\n" +
-                        "\t\t\t\tdeadLine = \"dd-MM-yyyy\"\n" +
-                        "\t\t\t}" +
-                        "\n\t\t*/" +
-                        "\n\t}\n" +
-                        "\tlessons {\n" +
-                        "\t\t/*\n" +
-                        "\t\twrite lessons with attendance of this student here" +
-                        "\n\t\tlike" +
-                        "\n\t\t\tlesson {\n" +
-                        "\t\t\t\tattendance = true\n" +
-                        "\t\t\t\tdate = \"dd-MM-yyyy\"\n" +
-                        "\t\t\t}" +
-                        "\n\t\t*/" +
-                        "\n\t}\n" +
-                        "\tmarks {\n" +
-                        "\t\t/*\n" +
-                        "\t\twrite marks of this student here" +
-                        "\n\t\tlike" +
-                        "\n\t\t\tmark {\n" +
-                        "\t\t\t\tname = 5\n" +
-                        "\t\t\t\tdate = \"dd-MM-yyyy\"\n" +
-                        "\t\t\t}" +
-                        "\n\t\t*/" +
-                        "\n\t}\n" +
-                        "}"
-            )
+            file.writeText("""
+                import ru.nsu.malov.dsl.DSL
+                
+                DSL().student {
+                       nickName = "$nickname"
+                       name = "$name"
+                       repoUrl = "$repoUrl"
+                       group {
+                            name = $group
+                       }
+                       tasks {
+		                    /*
+		                    write given tasks for this student here
+		                    like
+			                givenTask {
+                                taskId = "task 2.4.1"
+				                deadLine = "dd-MM-yyyy"
+			                }
+		                    */
+	                    }
+	                   lessons {
+		                    /*
+		                    write lessons with attendance of this student here
+		                    like
+			                lesson {
+				                attendance = true
+				                date = "dd-MM-yyyy"
+			                }
+		                    */
+	                   }
+	                   marks {
+		                    /*
+		                    write marks of this student here
+		                    like
+			                mark {
+				                name = 5
+				                date = "dd-MM-yyyy"
+			                }
+		               */
+	                   }
+                }
+            """.trimIndent())
             println("Successfully created a config")
+
         }
         else {
             println("Config already exists")

@@ -7,6 +7,7 @@ import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.eclipse.jgit.transport.URIish
 import ru.nsu.malov.config.MakeConfig
 import ru.nsu.malov.dsl.constructors.Student
+import ru.nsu.malov.builder.Builder
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -15,41 +16,74 @@ import javax.script.ScriptEngineManager
 
 fun main(args: Array<String>) {
     val application = Application()
-    if (args.isEmpty()) {
-        println("-makeConfig - create config file")
-        println("-printConfig - print result of reading config file")
-    } else if (args[0] == "-makeConfig") {
+    if (args.isEmpty() || args[0] == "-help"){
+        showHelpMessage()
+        return
+    }
+    if (args[0] == "-makeConfig") {
         application.makeConfig()
+        return
     } else if (args[0] == "-printConfig") {
-        application.printConfig()
+        application.printConfig(args)
+        return
     } else if (args[0] == "-clone") {
-        application.cloneRepo()
+        application.cloneRepo(args)
+        return
     } else if (args[0] == "-pull") {
-        application.pullRepo()
+        application.pullRepo(args)
+        return
+    } else if (args[0] == "-test"){
+        application.buildLab(args)
+        return
+    }
+    else{
+        showHelpMessage()
+        return
     }
 }
 
+private fun showHelpMessage(){
+    println(
+        """
+            -makeConfig - make configuration file
+            -printConfig [name] - print configuration [student's name] file 
+            -clone [name] - clone [student's] repository
+            -pull [name] [branch] - pull [branch] from [student's name] repository 
+            -test [name] [laboratory work] - build [student's name] [laboratory work] 
+        """.trimIndent()
+    )
+}
+
 class Application {
-    fun printConfig() {
-        println("Write student's name")
-        val name = readLine()
+    fun printConfig(args: Array<String>) {
+        val name: String
+        try {
+            name = args[1]
+        } catch (e: java.lang.IndexOutOfBoundsException){
+            System.err.println("You didn't specify a name")
+            return
+        }
         val path = "./configs/$name.kts"
         if (!File(path).exists()) {
-            println("No such config")
-            printConfig()
+            println("No such config. Try again")
         }
-        val student = configureStudent(name!!)
+        val student = configureStudent(name)
         println(student)
     }
 
-    fun cloneRepo() {
+    fun cloneRepo(args: Array<String>) {
         Git.init().setDirectory(File("./repos")).call()
-        println("Write student's name")
-        val name = readLine()
+        val name: String
+        try {
+            name = args[1]
+        } catch (e: IndexOutOfBoundsException){
+            System.err.println("You didn't specify a name")
+            return
+        }
         if (!Files.isDirectory(Paths.get("./repos/$name"))) {
             Files.createDirectories(Paths.get("./repos/$name"))
         }
-        val student = configureStudent(name!!)
+        val student = configureStudent(name)
         try {
             Git.cloneRepository()
                 .setURI(student.repoUrl)
@@ -60,7 +94,7 @@ class Application {
             return
         }
         val git = Git.open(File("./repos/$name"))
-        git.remoteAdd().setName("$name").setUri(URIish(student.repoUrl)).call()
+        git.remoteAdd().setName(name).setUri(URIish(student.repoUrl)).call()
         println("Successfully cloned repo")
     }
 
@@ -78,29 +112,70 @@ class Application {
         val repoUrl = readLine()
         println("Write student's group")
         val group = readLine()!!.toInt()
-        makeConfig.setUpStudent("$name", "$nickname", "$repoUrl", group)
+        try {
+            makeConfig.setUpStudent("$name", "$nickname", "$repoUrl", group)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return
+        }
+        println("Successfully made a config")
     }
 
-    fun pullRepo() {
-        println("Write student's name")
-        val name = readLine()
+    fun pullRepo(args: Array<String>) {
+        val name: String
+        try {
+            name = args[1]
+        } catch (e: IndexOutOfBoundsException){
+            System.err.println("You didn't specify name")
+            return
+        }
+
         if (!Files.isDirectory(Paths.get("./repos/$name"))) {
             println("No such directory. Did you clone this repo?")
         }
-        println("Branch to pull")
-        val branchName = readLine()
+        val branchName: String
+        try {
+            branchName = args[2]
+        } catch (e: IndexOutOfBoundsException){
+            System.err.println("You didn't specify a branch")
+            return
+        }
+
         val git = Git.open(File("./repos/$name"))
         try {
             git.checkout().setName(branchName).call()
-        } catch (e: RefNotFoundException){
+        } catch (e: RefNotFoundException) {
             git.checkout().setCreateBranch(true).setName(branchName).call()
             git.checkout().setName(branchName).call()
         }
-        git.pull().remote = name
-        git.pull().call()
-
+        try {
+            git.pull().remote = name
+            git.pull().call()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return
+        }
+        println("Successfully pulled repo")
     }
 
+    fun buildLab(args: Array<String>){
+        val builder = Builder()
+        val name: String
+        val lab: String
+        try {
+            name = args[1]
+        } catch (e: IndexOutOfBoundsException){
+            System.err.println("You didn't specify a student's name")
+            return
+        }
+        try {
+            lab = args[2]
+        } catch (e: IndexOutOfBoundsException){
+            System.err.println("You didn't specify a laboratory work")
+            return
+        }
+        builder.buildLab(name, lab)
+    }
     private fun configureStudent(name: String): Student {
         val textConfig = File("./configs/$name.kts").readText()
         var scriptResult: Student
