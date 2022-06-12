@@ -3,7 +3,6 @@ package ru.nsu.malov.application
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.JGitInternalException
 import org.eclipse.jgit.api.errors.RefNotFoundException
-import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.eclipse.jgit.transport.URIish
 import ru.nsu.malov.config.MakeConfig
 import ru.nsu.malov.dsl.constructors.Student
@@ -35,6 +34,8 @@ fun main(args: Array<String>) {
     } else if (args[0] == "-test"){
         application.buildLab(args)
         return
+    } else if (args[0] == "-documentation"){
+        application.makeDocumentation(args)
     }
     else{
         showHelpMessage()
@@ -49,7 +50,8 @@ private fun showHelpMessage(){
             -printConfig [name] - print configuration [student's name] file 
             -clone [name] - clone [student's] repository
             -pull [name] [branch] - pull [branch] from [student's name] repository 
-            -test [name] [laboratory work] - build [student's name] [laboratory work]. Creates report in ./testReports/[name] directory
+            -test [name] [laboratory work] - build [student's name] [laboratory work]. Creates report in ./reports/[name] directory
+            -documentation [name] [laboratory work] - make documentation about [student's name] [laboratory work]
         """.trimIndent()
     )
 }
@@ -176,6 +178,25 @@ class Application {
         }
         builder.buildLab(name, lab)
     }
+
+    fun makeDocumentation(args: Array<String>) {
+        val builder = Builder()
+        val name: String
+        val lab: String
+        try {
+            name = args[1]
+        } catch (e: IndexOutOfBoundsException){
+            System.err.println("You didn't specify a student's name")
+            return
+        }
+        try {
+            lab = args[2]
+        } catch (e: IndexOutOfBoundsException){
+            System.err.println("You didn't specify a laboratory work")
+            return
+        }
+        builder.documentation(name, lab)
+    }
     private fun configureStudent(name: String): Student {
         val textConfig = File("./configs/$name.kts").readText()
         var scriptResult: Student
@@ -184,4 +205,5 @@ class Application {
         }
         return scriptResult
     }
+
 }

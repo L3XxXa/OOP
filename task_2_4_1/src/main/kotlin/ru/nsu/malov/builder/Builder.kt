@@ -18,9 +18,19 @@ class Builder {
         createReport(name, fileName)
     }
 
+    fun documentation(name: String, fileName: String){
+        if (!File("./repos/$name/$fileName").exists()){
+            throw FileNotFoundException("$name doesn't have such file")
+        }
+        val connection = GradleConnector.newConnector().forProjectDirectory(File("./repos/$name/$fileName")).connect()
+        connection.use { connection ->
+            connection.newBuild().forTasks("javadoc").run()
+        }
+    }
+
     private fun createReport(name: String, fileName: String){
-        if (!Files.isDirectory(Path.of("./testReports/$name/"))){
-            Files.createDirectories(Path.of("./testReports/$name/"))
+        if (!Files.isDirectory(Path.of("./reports/$name/"))){
+            Files.createDirectories(Path.of("./reports/$name/"))
         }
         val file = File("./testReports/$name/$fileName.html")
         if(!file.exists()){
