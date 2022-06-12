@@ -49,7 +49,7 @@ private fun showHelpMessage(){
             -printConfig [name] - print configuration [student's name] file 
             -clone [name] - clone [student's] repository
             -pull [name] [branch] - pull [branch] from [student's name] repository 
-            -test [name] [laboratory work] - build [student's name] [laboratory work] 
+            -test [name] [laboratory work] - build [student's name] [laboratory work]. Creates report in ./testReports/[name] directory
         """.trimIndent()
     )
 }
