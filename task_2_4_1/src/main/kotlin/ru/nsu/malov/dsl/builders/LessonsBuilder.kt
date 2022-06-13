@@ -16,7 +16,7 @@ class LessonsBuilder {
     var attendance = false
     fun build(): Lesson {
         if (lessonDate == LocalDate.parse("01-01-0001", dateTimeFormatter)) {
-            throw IllegalArgumentException("Date of the lesson is required")
+            System.err.println("You didn't specify a date of the lesson. Set automatically $lessonDate")
         }
         return Lesson(lessonDate, attendance)
     }

@@ -16,7 +16,7 @@ class Builder {
         connection.use { connection ->
             connection.newBuild().forTasks("test").run()
         }
-        createReport(name, fileName)
+        println("successfully tested this lab")
     }
 
     fun documentation(name: String, fileName: String){
@@ -46,18 +46,5 @@ class Builder {
         }
         val documentationFile = File("./reports/$name/$fileName/documentation/allclasses-index.html")
         documentationFile.renameTo(File("./reports/$name/$fileName/documentation/Documentation.html"))
-    }
-
-    private fun createReport(name: String, fileName: String){
-        if (!Files.isDirectory(Path.of("./reports/$name/$fileName/"))){
-            Files.createDirectories(Path.of("./reports/$name/"))
-        }
-        val file = File("./testReports/$name/$fileName/$fileName'Report.html")
-        if(!file.exists()){
-            file.createNewFile()
-        }
-        val reportFile = File("./repos/$name/$fileName/build/reports/tests/test/index.html")
-        file.writeText(reportFile.readText())
-
     }
 }

@@ -2,7 +2,7 @@ import ru.nsu.malov.dsl.DSL
 
 DSL().student {
     nickName = "L3XxXa"
-    name = "Malov Alexey"
+    name = "AlexeyMalov"
     repoUrl = "https://github.com/L3XxXa/OOP.git"
     group {
         name = 20214
@@ -18,9 +18,9 @@ DSL().student {
         }
     }
     lessons {
-        lesson {
+        lesson{
             attendance = true
-            date = "12-12-2022"
+            date = "16-06-2022"
         }
     }
     marks{

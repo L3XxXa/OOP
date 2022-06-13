@@ -2,11 +2,12 @@ package ru.nsu.malov.application
 
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.JGitInternalException
-import org.eclipse.jgit.api.errors.RefNotFoundException
 import org.eclipse.jgit.transport.URIish
+import ru.nsu.malov.attendance.Attendance
 import ru.nsu.malov.config.MakeConfig
 import ru.nsu.malov.dsl.constructors.Student
 import ru.nsu.malov.builder.Builder
+import ru.nsu.malov.git.WorkWithGit
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -15,7 +16,7 @@ import javax.script.ScriptEngineManager
 
 fun main(args: Array<String>) {
     val application = Application()
-    if (args.isEmpty() || args[0] == "-help"){
+    if (args.isEmpty() || args[0] == "-help") {
         showHelpMessage()
         return
     }
@@ -31,19 +32,20 @@ fun main(args: Array<String>) {
     } else if (args[0] == "-pull") {
         application.pullRepo(args)
         return
-    } else if (args[0] == "-test"){
+    } else if (args[0] == "-test") {
         application.buildLab(args)
         return
-    } else if (args[0] == "-documentation"){
+    } else if (args[0] == "-documentation") {
         application.makeDocumentation(args)
-    }
-    else{
+    } else if (args[0] == "-attendance") {
+        application.addLesson(args)
+    } else {
         showHelpMessage()
         return
     }
 }
 
-private fun showHelpMessage(){
+private fun showHelpMessage() {
     println(
         """
             -makeConfig - make configuration file
@@ -52,6 +54,7 @@ private fun showHelpMessage(){
             -pull [name] [branch] - pull [branch] from [student's name] repository 
             -test [name] [laboratory work] - build [student's name] [laboratory work]. Creates report in ./reports/[name] directory
             -documentation [name] [laboratory work] - make documentation about [student's name] [laboratory work]
+            -attendance [date] [group name] [laboratory work] - check attendance of all students from [group name] at lesson [date] with given task [laboratory work]
         """.trimIndent()
     )
 }
@@ -61,7 +64,7 @@ class Application {
         val name: String
         try {
             name = args[1]
-        } catch (e: java.lang.IndexOutOfBoundsException){
+        } catch (e: java.lang.IndexOutOfBoundsException) {
             System.err.println("You didn't specify a name")
             return
         }
@@ -74,29 +77,15 @@ class Application {
     }
 
     fun cloneRepo(args: Array<String>) {
-        Git.init().setDirectory(File("./repos")).call()
         val name: String
         try {
             name = args[1]
-        } catch (e: IndexOutOfBoundsException){
+        } catch (e: IndexOutOfBoundsException) {
             System.err.println("You didn't specify a name")
             return
         }
-        if (!Files.isDirectory(Paths.get("./repos/$name"))) {
-            Files.createDirectories(Paths.get("./repos/$name"))
-        }
-        val student = configureStudent(name)
-        try {
-            Git.cloneRepository()
-                .setURI(student.repoUrl)
-                .setDirectory(File("./repos/$name"))
-                .call()
-        } catch (e: JGitInternalException) {
-            println("You have already cloned this repo")
-            return
-        }
-        val git = Git.open(File("./repos/$name"))
-        git.remoteAdd().setName(name).setUri(URIish(student.repoUrl)).call()
+        val workWithGit = WorkWithGit()
+        workWithGit.cloneRepo(name)
         println("Successfully cloned repo")
     }
 
@@ -127,7 +116,7 @@ class Application {
         val name: String
         try {
             name = args[1]
-        } catch (e: IndexOutOfBoundsException){
+        } catch (e: IndexOutOfBoundsException) {
             System.err.println("You didn't specify name")
             return
         }
@@ -138,41 +127,28 @@ class Application {
         val branchName: String
         try {
             branchName = args[2]
-        } catch (e: IndexOutOfBoundsException){
+        } catch (e: IndexOutOfBoundsException) {
             System.err.println("You didn't specify a branch")
             return
         }
-
-        val git = Git.open(File("./repos/$name"))
-        try {
-            git.checkout().setName(branchName).call()
-        } catch (e: RefNotFoundException) {
-            git.checkout().setCreateBranch(true).setName(branchName).call()
-            git.checkout().setName(branchName).call()
-        }
-        try {
-            git.pull().remote = name
-            git.pull().call()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return
-        }
+        val workWithGit = WorkWithGit()
+        workWithGit.pullRepo(name, branchName)
         println("Successfully pulled repo")
     }
 
-    fun buildLab(args: Array<String>){
+    fun buildLab(args: Array<String>) {
         val builder = Builder()
         val name: String
         val lab: String
         try {
             name = args[1]
-        } catch (e: IndexOutOfBoundsException){
+        } catch (e: IndexOutOfBoundsException) {
             System.err.println("You didn't specify a student's name")
             return
         }
         try {
             lab = args[2]
-        } catch (e: IndexOutOfBoundsException){
+        } catch (e: IndexOutOfBoundsException) {
             System.err.println("You didn't specify a laboratory work")
             return
         }
@@ -185,18 +161,46 @@ class Application {
         val lab: String
         try {
             name = args[1]
-        } catch (e: IndexOutOfBoundsException){
+        } catch (e: IndexOutOfBoundsException) {
             System.err.println("You didn't specify a student's name")
             return
         }
         try {
             lab = args[2]
-        } catch (e: IndexOutOfBoundsException){
+        } catch (e: IndexOutOfBoundsException) {
             System.err.println("You didn't specify a laboratory work")
             return
         }
         builder.documentation(name, lab)
     }
+
+    fun addLesson(args: Array<String>) {
+        val attendance = Attendance()
+        val name: String
+        val groupName: String
+        val task: String
+        try {
+            name = args[1]
+        } catch (e: IndexOutOfBoundsException) {
+            System.err.println("You didn't specify a date")
+            return
+        }
+        try {
+            groupName = args[2]
+        } catch (e: IndexOutOfBoundsException) {
+            System.err.println("You didn't specify a student's name")
+            return
+        }
+        try {
+            task = args[3]
+        } catch (e: IndexOutOfBoundsException) {
+            System.err.println("You didn't specify a student's name")
+            return
+        }
+        attendance.addLesson(name, groupName, task)
+
+    }
+
     private fun configureStudent(name: String): Student {
         val textConfig = File("./configs/$name.kts").readText()
         var scriptResult: Student
@@ -205,5 +209,6 @@ class Application {
         }
         return scriptResult
     }
+
 
 }

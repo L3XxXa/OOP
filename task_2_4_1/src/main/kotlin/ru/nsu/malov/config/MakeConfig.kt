@@ -23,36 +23,34 @@ class MakeConfig {
 		                    /*
 		                    write given tasks for this student here
 		                    like
-			                givenTask {
+                            givenTask {
                                 taskId = "task 2.4.1"
-				                deadLine = "dd-MM-yyyy"
-			                }
+                                deadLine = "dd-MM-yyyy"
+                            }
 		                    */
 	                    }
 	                   lessons {
 		                    /*
 		                    write lessons with attendance of this student here
 		                    like
-			                lesson {
-				                attendance = true
-				                date = "dd-MM-yyyy"
-			                }
+                            lesson {
+                                attendance = true
+                                date = "dd-MM-yyyy"
+                            }
 		                    */
 	                   }
 	                   marks {
 		                    /*
 		                    write marks of this student here
 		                    like
-			                mark {
-				                name = 5
-				                date = "dd-MM-yyyy"
-			                }
+                            mark {
+                                name = 5
+                                date = "dd-MM-yyyy"
+                            }
 		               */
 	                   }
                 }
             """.trimIndent())
-            println("Successfully created a config")
-
         }
         else {
             println("Config already exists")

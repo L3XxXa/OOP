@@ -20,7 +20,7 @@ class StudentBuilder {
     fun tasks(block: GivenTasks.() -> Unit){
         givenTasks.addAll(GivenTasks().apply(block))
     }
-    var lessons = mutableListOf<Lesson>()
+    var lessons = ArrayList<Lesson>()
     fun lessons(block: Lessons.() -> Unit){
         lessons.addAll(Lessons().apply(block))
     }
