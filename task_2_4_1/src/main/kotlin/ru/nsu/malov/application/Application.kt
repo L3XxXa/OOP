@@ -8,6 +8,7 @@ import ru.nsu.malov.config.MakeConfig
 import ru.nsu.malov.dsl.constructors.Student
 import ru.nsu.malov.builder.Builder
 import ru.nsu.malov.git.WorkWithGit
+import ru.nsu.malov.report.Report
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -43,6 +44,8 @@ fun main(args: Array<String>) {
         application.checkCodeStyle(args)
     } else if (args[0] == "-codeCoverage"){
         application.checkCodeCoverage(args)
+    } else if (args[0] == "-report"){
+        application.makeReport(args)
     } else {
         showHelpMessage()
         return
@@ -252,5 +255,18 @@ class Application {
             scriptResult = eval(textConfig) as Student
         }
         return scriptResult
+    }
+
+    fun makeReport(args: Array<String>) {
+        val name: String
+        try {
+            name = args[1]
+        } catch (e: IndexOutOfBoundsException){
+            System.err.println("You didn't specify a name")
+            return
+        }
+        val report = Report()
+        report.makeReport(name)
+
     }
 }

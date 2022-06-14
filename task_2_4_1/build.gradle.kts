@@ -17,6 +17,8 @@
         implementation("org.jetbrains.kotlin:kotlin-script-util")
         implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable")
         implementation(kotlin("stdlib"))
+        implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.5")
+        implementation("org.jetbrains.kotlinx:kotlinx-html:0.7.5")
         implementation(kotlin("reflect"))
         implementation(kotlin("script-runtime"))
         implementation(kotlin("compiler-embeddable"))

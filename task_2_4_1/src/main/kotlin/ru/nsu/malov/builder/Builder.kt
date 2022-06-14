@@ -1,5 +1,6 @@
 package ru.nsu.malov.builder
 
+import org.gradle.tooling.BuildException
 import org.gradle.tooling.GradleConnector
 import java.io.File
 import java.io.FileNotFoundException
@@ -8,15 +9,21 @@ import java.nio.file.Path
 import java.nio.file.StandardCopyOption
 
 class Builder {
-    fun buildLab(name: String, fileName: String){
+    fun buildLab(name: String, fileName: String): Boolean{
         if (!File("./repos/$name/$fileName").exists()){
-            throw FileNotFoundException("$name doesn't have such file")
+            throw FileNotFoundException("$name doesn't have $fileName")
         }
         val connection = GradleConnector.newConnector().forProjectDirectory(File("./repos/$name/$fileName")).connect()
         connection.use { connection ->
-            connection.newBuild().forTasks("test").run()
+            try {
+                connection.newBuild().forTasks("test").run()
+            } catch (e: BuildException){
+                e.printStackTrace()
+                return false
+            }
         }
         println("successfully tested this lab")
+        return true
     }
 
     fun documentation(name: String, fileName: String){
