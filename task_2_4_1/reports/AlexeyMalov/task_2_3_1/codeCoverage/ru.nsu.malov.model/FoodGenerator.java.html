@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FoodGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">another_snake</a> &gt; <a href="index.source.html" class="el_package">ru.nsu.malov.model</a> &gt; <span class="el_source">FoodGenerator.java</span></div><h1>FoodGenerator.java</h1><pre class="source lang-java linenums">package ru.nsu.malov.model;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class FoodGenerator {
+    private final int MAX_FOOD;
+    private final int HEIGHT;
+    private final int WIDTH;
+
+    private List&lt;Point&gt; food;
+
+    /**
+     * Constructor for the food generator class
+     *
+     * @param gameField - game field
+     * @param MAX_FOOD  - maximal amount of the food on the field
+     */
+<span class="fc" id="L20">    public FoodGenerator(GameField gameField, int MAX_FOOD) {</span>
+<span class="fc" id="L21">        this.MAX_FOOD = MAX_FOOD;</span>
+<span class="fc" id="L22">        HEIGHT = gameField.getROWS();</span>
+<span class="fc" id="L23">        WIDTH = gameField.getCOLUMNS();</span>
+<span class="fc" id="L24">        food = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L26">    }</span>
+
+
+    /**
+     * Generates food and checks that it is not in the snake or wall
+     *
+     * @param wallsGenerator - walls generator
+     * @param snake          - snake
+     */
+    public void generateFood(WallsGenerator wallsGenerator, Snake snake) {
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        while (food.size() &lt; MAX_FOOD) {</span>
+            Point newFoodItem;
+            do {
+<span class="fc" id="L39">                newFoodItem = new Point((int) (Math.random() * HEIGHT), ((int) (Math.random() * WIDTH)));</span>
+<span class="pc bpc" id="L40" title="1 of 6 branches missed.">            } while (wallsGenerator.getWalls().contains(newFoodItem) || snake.getPython().contains(newFoodItem) || food.contains(newFoodItem));</span>
+<span class="fc" id="L41">            food.add(newFoodItem);</span>
+<span class="fc" id="L42">        }</span>
+<span class="fc" id="L43">    }</span>
+
+    /**
+     * Getter for List food
+     *
+     * @return list with food
+     */
+    public List&lt;Point&gt; getFood() {
+<span class="fc" id="L51">        return food;</span>
+    }
+
+    /**
+     * Removes all food from the field
+     */
+    public void remove() {
+<span class="fc" id="L58">        food.removeAll(food);</span>
+<span class="fc" id="L59">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

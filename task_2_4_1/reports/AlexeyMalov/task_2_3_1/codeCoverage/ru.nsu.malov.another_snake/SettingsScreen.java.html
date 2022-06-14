@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SettingsScreen.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">another_snake</a> &gt; <a href="index.source.html" class="el_package">ru.nsu.malov.another_snake</a> &gt; <span class="el_source">SettingsScreen.java</span></div><h1>SettingsScreen.java</h1><pre class="source lang-java linenums">package ru.nsu.malov.another_snake;
+
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+<span class="nc" id="L13">public class SettingsScreen extends Application {</span>
+    public ChoiceBox level;
+    public TextField foodAmount;
+    public TextField fieldSize;
+    public TextField wallsAmount;
+    public TextField scoreForWin;
+    public Label error;
+    public Button startGame;
+    public Button toMainScreen;
+
+    private int foodAmountInt;
+    private int fieldSizeInt;
+    private int wallsAmountInt;
+    private int scoreForWinInt;
+    private int levelInt;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+<span class="nc" id="L31">        FXMLLoader fxmlLoader = new FXMLLoader(MainScreen.class.getResource(&quot;settings-screen.fxml&quot;));</span>
+<span class="nc" id="L32">        Scene scene = new Scene(fxmlLoader.load(), 900, 900);</span>
+<span class="nc" id="L33">        primaryStage.setTitle(&quot;PYTHON&quot;);</span>
+<span class="nc" id="L34">        primaryStage.setScene(scene);</span>
+<span class="nc" id="L35">        primaryStage.show();</span>
+<span class="nc" id="L36">    }</span>
+
+    /**
+     * On start button click listener
+     * Parse parameters and set up the game with 'Parameters' class
+     * Starts new stage with the game
+     *
+     * @param actionEvent
+     */
+    public void onStartPressed(ActionEvent actionEvent) {
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if (level.getValue().equals(&quot;Easy&quot;)) {</span>
+<span class="nc" id="L47">            levelInt = 1;</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">        } else if (level.getValue().equals(&quot;Medium&quot;)) {</span>
+<span class="nc" id="L49">            levelInt = 2;</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        } else if (level.getValue().equals(&quot;Hard&quot;)) {</span>
+<span class="nc" id="L51">            levelInt = 3;</span>
+        } else {
+<span class="nc" id="L53">            levelInt = 4;</span>
+        }
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        if (foodAmount.getText().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L56">            foodAmountInt = 3;</span>
+        } else {
+<span class="nc" id="L58">            foodAmountInt = Integer.parseInt(foodAmount.getText());</span>
+        }
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (fieldSize.getText().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L61">            fieldSizeInt = 20;</span>
+        } else {
+<span class="nc" id="L63">            fieldSizeInt = Integer.parseInt(fieldSize.getText());</span>
+        }
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (wallsAmount.getText().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L66">            wallsAmountInt = 0;</span>
+        } else {
+<span class="nc" id="L68">            wallsAmountInt = Integer.parseInt(wallsAmount.getText());</span>
+        }
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (scoreForWin.getText().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L71">            scoreForWinInt = 10;</span>
+        } else {
+<span class="nc" id="L73">            scoreForWinInt = Integer.parseInt(scoreForWin.getText());</span>
+        }
+<span class="nc bnc" id="L75" title="All 8 branches missed.">        if (fieldSizeInt &lt;= 8 || foodAmountInt &lt;= 0 || wallsAmountInt &lt; 0 || scoreForWinInt &lt; 0) {</span>
+<span class="nc" id="L76">            error.setVisible(true);</span>
+        } else {
+<span class="nc" id="L78">            startGame.getScene().getWindow().hide();</span>
+<span class="nc" id="L79">            ru.nsu.malov.another_snake.Parameters parameters = new ru.nsu.malov.another_snake.Parameters(foodAmountInt, wallsAmountInt, fieldSizeInt, fieldSizeInt, scoreForWinInt, levelInt);</span>
+<span class="nc" id="L80">            SnakeGame snakeGame = new SnakeGame(parameters);</span>
+<span class="nc" id="L81">            Stage stage = new Stage();</span>
+<span class="nc" id="L82">            snakeGame.start(stage);</span>
+        }
+<span class="nc" id="L84">    }</span>
+
+    public void onToMainScreenPressed(ActionEvent actionEvent) {
+<span class="nc" id="L87">        Stage stage = new Stage();</span>
+<span class="nc" id="L88">        toMainScreen.getScene().getWindow().hide();</span>
+<span class="nc" id="L89">        MainScreen mainScreen = new MainScreen();</span>
+        try {
+<span class="nc" id="L91">            mainScreen.start(stage);</span>
+<span class="nc" id="L92">        } catch (Exception e) {</span>
+<span class="nc" id="L93">            e.printStackTrace();</span>
+<span class="nc" id="L94">        }</span>
+<span class="nc" id="L95">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

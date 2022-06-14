@@ -39,9 +39,11 @@ fun main(args: Array<String>) {
         application.makeDocumentation(args)
     } else if (args[0] == "-attendance") {
         application.addLesson(args)
-    } else if (args[0] == "-codestyle"){
+    } else if (args[0] == "-codestyle") {
         application.checkCodeStyle(args)
-    } else{
+    } else if (args[0] == "-codeCoverage"){
+        application.checkCodeCoverage(args)
+    } else {
         showHelpMessage()
         return
     }
@@ -57,6 +59,8 @@ private fun showHelpMessage() {
             -test [name] [laboratory work] - build [student's name] [laboratory work]. Creates report in ./reports/[name] directory
             -documentation [name] [laboratory work] - make documentation about [student's name] [laboratory work]
             -attendance [date] [group name] [laboratory work] - check attendance of all students from [group name] at lesson [date] with given task [laboratory work]
+            -codestyle [name] [laboratory work] - check code style for [student's name] [laboratory work]
+            -codeCoverage [name] [laboratory work] - check code coverage of the unit test for [student's name] [laboratory work]
         """.trimIndent()
     )
 }
@@ -202,6 +206,7 @@ class Application {
         attendance.addLesson(name, groupName, task)
 
     }
+
     fun checkCodeStyle(args: Array<String>) {
         val builder = Builder()
         val name: String
@@ -220,6 +225,26 @@ class Application {
         }
         builder.checkCodeStyle(name, lab)
     }
+
+    fun checkCodeCoverage(args: Array<String>) {
+        val builder = Builder()
+        val name: String
+        val lab: String
+        try {
+            name = args[1]
+        } catch (e: IndexOutOfBoundsException) {
+            System.err.println("You didn't specify a student's name")
+            return
+        }
+        try {
+            lab = args[2]
+        } catch (e: IndexOutOfBoundsException) {
+            System.err.println("You didn't specify a laboratory work")
+            return
+        }
+        builder.checkTestCoverage(name, lab)
+    }
+
     private fun configureStudent(name: String): Student {
         val textConfig = File("./configs/$name.kts").readText()
         var scriptResult: Student
@@ -228,8 +253,4 @@ class Application {
         }
         return scriptResult
     }
-
-
-
-
 }
