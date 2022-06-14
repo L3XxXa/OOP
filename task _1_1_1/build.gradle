@@ -10,6 +10,7 @@ repositories {
     mavenCentral()
 }
 
+//use checkstyleMain to check code style of your file
 checkstyle {
     toolVersion = '10.3'
     configFile = file("./config/checkstyle/checkstyle.xml")
