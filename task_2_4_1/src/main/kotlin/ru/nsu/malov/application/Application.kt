@@ -39,7 +39,9 @@ fun main(args: Array<String>) {
         application.makeDocumentation(args)
     } else if (args[0] == "-attendance") {
         application.addLesson(args)
-    } else {
+    } else if (args[0] == "-codestyle"){
+        application.checkCodeStyle(args)
+    } else{
         showHelpMessage()
         return
     }
@@ -200,7 +202,24 @@ class Application {
         attendance.addLesson(name, groupName, task)
 
     }
-
+    fun checkCodeStyle(args: Array<String>) {
+        val builder = Builder()
+        val name: String
+        val lab: String
+        try {
+            name = args[1]
+        } catch (e: IndexOutOfBoundsException) {
+            System.err.println("You didn't specify a student's name")
+            return
+        }
+        try {
+            lab = args[2]
+        } catch (e: IndexOutOfBoundsException) {
+            System.err.println("You didn't specify a laboratory work")
+            return
+        }
+        builder.checkCodeStyle(name, lab)
+    }
     private fun configureStudent(name: String): Student {
         val textConfig = File("./configs/$name.kts").readText()
         var scriptResult: Student
@@ -209,6 +228,8 @@ class Application {
         }
         return scriptResult
     }
+
+
 
 
 }
