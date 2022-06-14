@@ -17,12 +17,12 @@ class Builder {
         connection.use { connection ->
             try {
                 connection.newBuild().forTasks("test").run()
+                println("Successful test")
             } catch (e: BuildException){
-                e.printStackTrace()
+                System.err.println("Error in test")
                 return false
             }
         }
-        println("successfully tested this lab")
         return true
     }
 

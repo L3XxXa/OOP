@@ -163,6 +163,7 @@ class Application {
             return
         }
         builder.buildLab(name, lab)
+        println("Successfully tested this lab")
     }
 
     fun makeDocumentation(args: Array<String>) {
@@ -182,6 +183,7 @@ class Application {
             return
         }
         builder.documentation(name, lab)
+        println("Successfully made documentation for this lab")
     }
 
     fun addLesson(args: Array<String>) {
@@ -208,7 +210,6 @@ class Application {
             return
         }
         attendance.addLesson(name, groupName, task)
-
     }
 
     fun checkCodeStyle(args: Array<String>) {
@@ -228,6 +229,7 @@ class Application {
             return
         }
         builder.checkCodeStyle(name, lab)
+        println("Successfully checked code style")
     }
 
     fun checkCodeCoverage(args: Array<String>) {
@@ -247,6 +249,7 @@ class Application {
             return
         }
         builder.checkTestCoverage(name, lab)
+        println("successfully ran with coverage")
     }
 
     private fun configureStudent(name: String): Student {

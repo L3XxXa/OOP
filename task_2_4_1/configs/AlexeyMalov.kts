@@ -12,6 +12,10 @@ DSL().student {
             taskId = "task_2_3_1"
             deadLine = "12-12-2022"
         }
+        givenTask{
+            taskId = "task_2_1_1"
+            deadLine = "16-12-2022"
+        }
     }
     lessons {
         lesson{
