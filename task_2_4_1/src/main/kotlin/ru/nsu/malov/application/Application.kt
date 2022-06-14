@@ -64,6 +64,7 @@ private fun showHelpMessage() {
             -attendance [date] [group name] [laboratory work] - check attendance of all students from [group name] at lesson [date] with given task [laboratory work]
             -codestyle [name] [laboratory work] - check code style for [student's name] [laboratory work]
             -codeCoverage [name] [laboratory work] - check code coverage of the unit test for [student's name] [laboratory work]
+            -report [name] - make report about [student's name]
         """.trimIndent()
     )
 }
