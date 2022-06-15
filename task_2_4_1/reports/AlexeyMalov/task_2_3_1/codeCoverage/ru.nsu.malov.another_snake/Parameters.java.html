@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Parameters.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">another_snake</a> &gt; <a href="index.source.html" class="el_package">ru.nsu.malov.another_snake</a> &gt; <span class="el_source">Parameters.java</span></div><h1>Parameters.java</h1><pre class="source lang-java linenums">package ru.nsu.malov.another_snake;
+
+public class Parameters {
+    private final int MAX_FOOD;
+    private final int MAX_WALLS;
+    private final int MAX_ROWS;
+    private final int MAX_COLUMNS;
+    private final int POINT_SIZE;
+    private final int SCORE_FOR_WIN;
+    private final int LEVEL;
+<span class="nc" id="L11">    private final int HORIZONTAL_SIZE = 900;</span>
+<span class="nc" id="L12">    private final int VERTICAL_SIZE = 900;</span>
+
+    /**
+     * Constructor for parameters class
+     *
+     * @param max_food      - max food on the field at same time
+     * @param max_walls     - amount of max walls on the field at same time
+     * @param max_rows      - amount of rows of the field
+     * @param max_columns   - amount of columns of the field
+     * @param score_for_win - amount of scores is needed to win
+     * @param level         - difficulty level
+     */
+<span class="nc" id="L24">    public Parameters(int max_food, int max_walls, int max_rows, int max_columns, int score_for_win, int level) {</span>
+<span class="nc" id="L25">        MAX_FOOD = max_food;</span>
+<span class="nc" id="L26">        MAX_WALLS = max_walls;</span>
+<span class="nc" id="L27">        MAX_ROWS = max_rows;</span>
+<span class="nc" id="L28">        MAX_COLUMNS = max_columns;</span>
+<span class="nc" id="L29">        LEVEL = level;</span>
+<span class="nc" id="L30">        POINT_SIZE = HORIZONTAL_SIZE / MAX_COLUMNS;</span>
+<span class="nc" id="L31">        SCORE_FOR_WIN = score_for_win;</span>
+<span class="nc" id="L32">    }</span>
+
+
+    /**
+     * Getter for MAX_FOOD
+     *
+     * @return amount of max food on the field at same time
+     */
+    public int getMAX_FOOD() {
+<span class="nc" id="L41">        return MAX_FOOD;</span>
+    }
+
+    /**
+     * Getter for MAX_WALLS
+     *
+     * @return amount of max walls on the field at same time
+     */
+    public int getMAX_WALLS() {
+<span class="nc" id="L50">        return MAX_WALLS;</span>
+    }
+
+    /**
+     * Getter for MAX_ROWS
+     *
+     * @return amount of rows of the field
+     */
+    public int getMAX_ROWS() {
+<span class="nc" id="L59">        return MAX_ROWS;</span>
+    }
+
+    /**
+     * Getter for SCORE_FOR_WIN
+     *
+     * @return amount of scores is needed to win
+     */
+    public int getSCORE_FOR_WIN() {
+<span class="nc" id="L68">        return SCORE_FOR_WIN;</span>
+    }
+
+    /**
+     * Getter for MAX_COLUMNS
+     *
+     * @return amount of columns of the field
+     */
+    public int getMAX_COLUMNS() {
+<span class="nc" id="L77">        return MAX_COLUMNS;</span>
+    }
+
+    /**
+     * Getter for POINT_SIZE
+     *
+     * @return size of the point of the field
+     */
+    public int getPOINT_SIZE() {
+<span class="nc" id="L86">        return POINT_SIZE;</span>
+    }
+
+    /**
+     * Getter for HORIZONTAL_SIZE
+     *
+     * @return size of the field on X axis
+     */
+    public int getHORIZONTAL_SIZE() {
+<span class="nc" id="L95">        return HORIZONTAL_SIZE;</span>
+    }
+
+    /**
+     * Getter for VERTICAL_SIZE
+     *
+     * @return size of the field on Y axis
+     */
+    public int getVERTICAL_SIZE() {
+<span class="nc" id="L104">        return VERTICAL_SIZE;</span>
+    }
+
+    /**
+     * Getter for LEVEL
+     *
+     * @return difficulty level
+     */
+    public int getLEVEL() {
+<span class="nc" id="L113">        return LEVEL;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

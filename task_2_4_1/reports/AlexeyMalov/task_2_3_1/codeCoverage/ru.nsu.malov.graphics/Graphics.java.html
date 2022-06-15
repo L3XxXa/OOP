@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Graphics.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">another_snake</a> &gt; <a href="index.source.html" class="el_package">ru.nsu.malov.graphics</a> &gt; <span class="el_source">Graphics.java</span></div><h1>Graphics.java</h1><pre class="source lang-java linenums">package ru.nsu.malov.graphics;
+
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import ru.nsu.malov.model.GameField;
+
+import java.awt.*;
+import java.util.List;
+
+public class Graphics {
+    private GameField gameField;
+
+    /**
+     * Constructor for the Graphics class
+     *
+     * @param gameField - Game field
+     */
+<span class="nc" id="L19">    public Graphics(GameField gameField) {</span>
+<span class="nc" id="L20">        this.gameField = gameField;</span>
+<span class="nc" id="L21">    }</span>
+
+    /**
+     * Draws black background
+     *
+     * @param graphicsContext - graphic context of the stage
+     */
+    public void drawBackGround(GraphicsContext graphicsContext) {
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        for (int i = 0; i &lt; gameField.getROWS(); i++) {</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">            for (int j = 0; j &lt; gameField.getCOLUMNS(); j++) {</span>
+<span class="nc" id="L31">                graphicsContext.setFill(Color.web(&quot;000000&quot;));</span>
+<span class="nc" id="L32">                graphicsContext.fillRect(i * gameField.getPOINT_SIZE(), j * gameField.getPOINT_SIZE(), gameField.getPOINT_SIZE(), gameField.getPOINT_SIZE());</span>
+            }
+        }
+<span class="nc" id="L35">    }</span>
+
+    /**
+     * Draws food on the game field
+     *
+     * @param graphicsContext - graphic context of the stage
+     * @param food            - array list with food
+     */
+    public void drawFood(GraphicsContext graphicsContext, List&lt;Point&gt; food) {
+<span class="nc" id="L44">        graphicsContext.setFill(Color.web(&quot;ff0000&quot;));</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        for (Point point : food) {</span>
+<span class="nc" id="L46">            graphicsContext.fillRoundRect(point.getX() * gameField.getPOINT_SIZE(), point.getY() * gameField.getPOINT_SIZE(),</span>
+<span class="nc" id="L47">                    gameField.getPOINT_SIZE(), gameField.getPOINT_SIZE(), 45, 45);</span>
+<span class="nc" id="L48">        }</span>
+
+<span class="nc" id="L50">    }</span>
+
+
+    /**
+     * Draws python on the game field
+     *
+     * @param graphicsContext - graphic context of the stage
+     * @param python          - array list with python
+     */
+    public void drawPython(GraphicsContext graphicsContext, List&lt;Point&gt; python) {
+<span class="nc" id="L60">        graphicsContext.setFill(Color.web(&quot;05f53d&quot;));</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        for (Point point : python) {</span>
+<span class="nc" id="L62">            graphicsContext.fillRoundRect(point.getX() * gameField.getPOINT_SIZE(),</span>
+<span class="nc" id="L63">                    point.getY() * gameField.getPOINT_SIZE(),</span>
+<span class="nc" id="L64">                    gameField.getPOINT_SIZE() - 1,</span>
+<span class="nc" id="L65">                    gameField.getPOINT_SIZE() - 1,</span>
+                    25, 25);
+<span class="nc" id="L67">        }</span>
+<span class="nc" id="L68">    }</span>
+
+    /**
+     * Draws walls on the game field
+     *
+     * @param graphicsContext - graphic context of the stage
+     * @param walls           - array list with walls
+     */
+    public void drawWalls(GraphicsContext graphicsContext, List&lt;Point&gt; walls) {
+<span class="nc" id="L77">        graphicsContext.setFill(Color.web(&quot;ffffff&quot;));</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        for (Point point : walls) {</span>
+<span class="nc" id="L79">            graphicsContext.fillRect(point.getX() * gameField.getPOINT_SIZE(), point.getY() * gameField.getPOINT_SIZE(), gameField.getPOINT_SIZE(), gameField.getPOINT_SIZE());</span>
+<span class="nc" id="L80">        }</span>
+<span class="nc" id="L81">    }</span>
+
+    /**
+     * Draws collision on the snake
+     *
+     * @param graphicsContext - graphic context of the stage
+     * @param collisionPoint  - point of the collision
+     */
+    public void drawCollision(GraphicsContext graphicsContext, Point collisionPoint) {
+<span class="nc" id="L90">        graphicsContext.setFill(Color.web(&quot;ff0000&quot;));</span>
+<span class="nc" id="L91">        graphicsContext.fillRoundRect(collisionPoint.getX() * gameField.getPOINT_SIZE(), collisionPoint.getY() * gameField.getPOINT_SIZE(),</span>
+<span class="nc" id="L92">                gameField.getPOINT_SIZE(), gameField.getPOINT_SIZE(), 25, 25);</span>
+<span class="nc" id="L93">    }</span>
+
+    /**
+     * Draws score
+     *
+     * @param graphicsContext - graphic context of the stage
+     * @param score           - current score
+     * @param scoreForWin     - score is needed to win
+     */
+    public void drawScore(GraphicsContext graphicsContext, int score, int scoreForWin) {
+<span class="nc" id="L103">        graphicsContext.setFill(Color.web(&quot;ffffff&quot;));</span>
+<span class="nc" id="L104">        graphicsContext.setFont(new Font(&quot;Digital-7&quot;, 35));</span>
+<span class="nc" id="L105">        graphicsContext.fillText(&quot;Score: &quot; + score + &quot;/&quot; + scoreForWin, 10, 35);</span>
+
+<span class="nc" id="L107">    }</span>
+
+    /**
+     * Draws game over screen
+     *
+     * @param graphicsContext - graphic context of the stage
+     * @param score           - current score
+     */
+    public void drawGameOver(GraphicsContext graphicsContext, int score) {
+<span class="nc" id="L116">        drawBackGround(graphicsContext);</span>
+<span class="nc" id="L117">        graphicsContext.setFill(Color.web(&quot;05f53d&quot;));</span>
+<span class="nc" id="L118">        graphicsContext.setFont(new Font(&quot;Digital-7&quot;, 50));</span>
+<span class="nc" id="L119">        graphicsContext.fillText(&quot;Game Over&quot; + &quot;\n&quot; + &quot;Score &quot; + score + &quot;\n&quot; + &quot;Press ENTER to &quot; + &quot;\n&quot; + &quot;restart the game&quot; + &quot;\n&quot; + &quot;Press ESC to&quot; + &quot;\n&quot; + &quot;open settings&quot;,</span>
+<span class="nc" id="L120">                gameField.getWIDTH() / 3.6, gameField.getHEIGHT() / 3.0);</span>
+<span class="nc" id="L121">    }</span>
+
+    /**
+     * Draws pause screen
+     *
+     * @param graphicsContext - graphic context of the stage
+     */
+    public void drawPause(GraphicsContext graphicsContext) {
+<span class="nc" id="L129">        drawBackGround(graphicsContext);</span>
+<span class="nc" id="L130">        graphicsContext.setFill(Color.web(&quot;05f53d&quot;));</span>
+<span class="nc" id="L131">        graphicsContext.setFont(new Font(&quot;Regular&quot;, 50));</span>
+<span class="nc" id="L132">        graphicsContext.fillText(&quot;&quot;&quot;</span>
+                Game paused
+                Press ENTER to
+                restart the game
+                Press ESC to
+                open settings
+                Press SPACE to
+<span class="nc" id="L139">                continue&quot;&quot;&quot;, gameField.getWIDTH() / 3.6, gameField.getHEIGHT() / 3.5);</span>
+<span class="nc" id="L140">    }</span>
+
+    /**
+     * Draws win screen
+     *
+     * @param graphicsContext - graphic context of the stage
+     */
+    public void drawWin(GraphicsContext graphicsContext) {
+<span class="nc" id="L148">        drawBackGround(graphicsContext);</span>
+<span class="nc" id="L149">        graphicsContext.setFill(Color.web(&quot;05f53d&quot;));</span>
+<span class="nc" id="L150">        graphicsContext.setFont(new Font(&quot;Regular&quot;, 50));</span>
+<span class="nc" id="L151">        graphicsContext.fillText(&quot;&quot;&quot;</span>
+                You won
+                Press ENTER to
+                restart the game
+                Press ESC to
+<span class="nc" id="L156">                open settings&quot;&quot;&quot;, gameField.getWIDTH() / 4.5, gameField.getHEIGHT() / 2.5);</span>
+<span class="nc" id="L157">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
